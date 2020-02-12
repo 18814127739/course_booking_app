@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'router/application.dart';
 import 'router/routes.dart';
 import 'loading.dart';
+import 'provider/current_index_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,8 +17,10 @@ class MyApp extends StatelessWidget {
     Application.router = router;
 
     return MultiProvider(
-      providers: [],
-      child:MaterialApp(
+      providers: [
+        ChangeNotifierProvider(builder: (_) => CurrentIndexProvider()),
+      ],
+      child: MaterialApp(
         title: '课程预约app',
         theme: ThemeData(
           primaryColor: Colors.blue,
