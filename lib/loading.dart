@@ -52,7 +52,7 @@ class LoadingState extends State<Loading> {
           child: Image.asset('assets/images/loading/1.jpeg', fit: BoxFit.cover),
         ),
         Positioned(
-          top: 165,
+          top: 140,
           left: 35,
           child: Text(
             '同\n学', 
@@ -60,7 +60,7 @@ class LoadingState extends State<Loading> {
           ),
         ),
         Positioned(
-          top: 235,
+          top: 210,
           left: 100,
           child: Text(
             '您\n好', 
