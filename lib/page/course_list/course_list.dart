@@ -13,6 +13,7 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
   // tab控制器
   TabController tabController;
   List<Map<String, dynamic>> tabs;
+  bool tabVisible = true;
 
   List<Map<String, dynamic>> courseList = List.generate(5, (int index) => ({
     "id": "$index", 
@@ -56,6 +57,12 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
     print('turn to searchPage');
   }
 
+  void toggleTabVisible() {
+    setState(() {
+      tabVisible = !tabVisible;
+    });
+  }
+
   List<Widget> renderCourseList(List<Map<String, dynamic>> courseList) {
     return courseList.map((Map<String, dynamic> c) => 
       CourseItem(c["id"], c["name"], c["desc"], c["image"], c["price"], c["bookNum"])
@@ -97,30 +104,30 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
           ),
           actions: <Widget>[
             Center(
-              child: Container(
-                height: 30,
-                width: 60,
-                margin: EdgeInsets.only(right: Gpadding.m, left: Gpadding.m),
-                decoration: BoxDecoration(
-                  color: string2Color('#F7F7F7'),
-                  borderRadius: BorderRadius.all(Radius.circular(Gradius.base)),
-                ),
-                child: Center(
-                  child: Text(
-                    '分类',
-                    style: TextStyle(
-                      color: FontColor.grey,
+              child: GestureDetector(
+                onTap: toggleTabVisible,
+                child: Container(
+                  height: 30,
+                  width: 60,
+                  margin: EdgeInsets.only(right: Gpadding.m, left: Gpadding.m),
+                  decoration: BoxDecoration(
+                    color: string2Color('#F7F7F7'),
+                    borderRadius: BorderRadius.all(Radius.circular(Gradius.base)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '分类',
+                      style: TextStyle(
+                        color: FontColor.grey,
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ), 
             )
           ],
-          //选项卡
-          bottom: PreferredSize(
-            // 使用PreferredSize调整整个appBar高度
-            preferredSize: Size(0, 30),
-            child: TabBar(
+          // 根据tabVisible 显示/隐藏 选项卡
+          bottom: tabVisible ? TabBar(
               // 设置tab控制器
               controller: tabController, 
               isScrollable: true,
@@ -129,8 +136,7 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
               labelColor: Colors.blue, // 选中文字颜色
               unselectedLabelColor: string2Color('#44444F'), // 未选中文字颜色
               tabs: tabs.map((item) => Tab(text: item["label"])).toList(),
-            ),
-          ),
+            ) : null,
         ),
         //添加选项卡视图
         body: TabBarView(
