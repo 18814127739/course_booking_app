@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'banner.dart';
-import 'course_item.dart';
+import 'hot_course_item.dart';
 import '../../provider/current_index_provider.dart';
 import '../../utils/utils.dart';
 import '../../style/index.dart';
@@ -12,22 +12,30 @@ class Home extends StatefulWidget {
   HomeState createState() => HomeState();
 }
 
+const List menuData = [
+  {"color": "#DF71F5", "title": "我的课表"},
+  {"color": "#2283F6", "title": "课堂作业"},
+  {"color": "#19AA8D", "title": "课堂考勤"},
+  {"color": "#FE3D50", "title": "每日阅读"},
+  {"color": "#FEA43D", "title": "我的成绩"},
+  {"color": "#833DFE", "title": "课堂评价"},
+];
+
 class HomeState extends State<Home> {
   @override
   void initState() {
+    print('home in');
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    print('home out');
+    super.dispose();
   }
 
   // 首页菜单
   Widget renderMenuList() {
-    List menuData = [
-      {"color": "#DF71F5", "title": "我的课表"},
-      {"color": "#2283F6", "title": "课堂作业"},
-      {"color": "#19AA8D", "title": "课堂考勤"},
-      {"color": "#FE3D50", "title": "每日阅读"},
-      {"color": "#FEA43D", "title": "我的成绩"},
-      {"color": "#833DFE", "title": "课堂评价"},
-    ];
     double deviceWidth = MediaQuery.of(context).size.width;
     double itemWidth = (deviceWidth - 120) / 4;
     double itemHeight = itemWidth;
@@ -40,14 +48,14 @@ class HomeState extends State<Home> {
         },
         child: Container(
           width: itemWidth,
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+          margin: EdgeInsets.only(left: Gpadding.s, right: Gpadding.s, bottom: Gpadding.l),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
                 width: itemWidth,
                 height: itemHeight,
-                margin: EdgeInsets.only(bottom: 5),
+                margin: EdgeInsets.only(bottom: Gpadding.xs),
                 padding: EdgeInsets.all(1),
                 decoration: BoxDecoration(
                     color: string2Color(item["color"]),
@@ -59,7 +67,7 @@ class HomeState extends State<Home> {
               ),
               Text(
                 item["title"],
-                style: TextStyle(fontSize: FontSize.s, color: string2Color('#9E9EA3')),
+                style: TextStyle(fontSize: FontSize.s, color: FontColor.grey),
               )
             ],
           ),
@@ -105,12 +113,12 @@ class HomeState extends State<Home> {
     ];
 
     List<Widget> courseList = courseData.map((item) => 
-      CourseItem(item["id"], item["name"], item["desc"], item["image"])
+      HotCourseItem(item["id"], item["name"], item["desc"], item["image"])
     ).toList();
 
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 15, bottom: 40),
-      padding: EdgeInsets.all(15),
+      margin: EdgeInsets.only(left: Gpadding.m, right: Gpadding.m, bottom: Gpadding.xxl),
+      padding: EdgeInsets.all(Gpadding.m),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -165,6 +173,7 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // 设置状态颜色
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       body: ListView(
@@ -175,7 +184,7 @@ class HomeState extends State<Home> {
                 children: <Widget>[
                   Container(
                     height: 220,
-                    padding: EdgeInsets.only(top: 20, left: 15, right: 15),
+                    padding: EdgeInsets.only(top: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(37, 177, 135, 0.57),
                       borderRadius: BorderRadius.only(
@@ -192,13 +201,13 @@ class HomeState extends State<Home> {
                                   AssetImage('assets/images/avatar.jpeg'),
                               radius: 30,
                             ),
-                            Padding(padding: EdgeInsets.only(left: 15)),
+                            Padding(padding: EdgeInsets.only(left: Gpadding.m)),
                             Text(
                               'Hi Pikachu',
                               maxLines: 1,
                               style: TextStyle(
                                 fontSize: FontSize.xl,
-                                color: Colors.white,
+                                color: FontColor.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -212,7 +221,7 @@ class HomeState extends State<Home> {
               ),
               Container(
                 padding:
-                    EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
+                    EdgeInsets.all(Gpadding.m),
                 child: Column(
                   children: <Widget>[
                     Padding(padding: EdgeInsets.only(top: 80)),

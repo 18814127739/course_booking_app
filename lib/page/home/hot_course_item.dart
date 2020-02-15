@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../utils/utils.dart';
 import '../../style/index.dart';
 
-class CourseItem extends StatelessWidget {
+class HotCourseItem extends StatelessWidget {
   String id;
   String name;
   String desc;
   String image;
 
-  CourseItem(@required this.id, @required this.name, @required this.desc, @required this.image);
+  HotCourseItem(@required this.id, @required this.name, @required this.desc, @required this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +30,13 @@ class CourseItem extends StatelessWidget {
         children: <Widget>[
           Image.asset(
             image,
-            width: 108,
+            width: 98,
             height: 98,
             fit: BoxFit.cover,
           ),
-          Padding(padding: EdgeInsets.only(right: 20)),
+          Padding(padding: EdgeInsets.only(right: Gpadding.l)),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
@@ -50,7 +48,7 @@ class CourseItem extends StatelessWidget {
                 Text(
                   desc,
                   maxLines: 2,
-                  style: TextStyle(color: string2Color('#9E9EA3')),
+                  style: TextStyle(color: FontColor.grey),
                 ),
                 Padding(padding: EdgeInsets.only(top: 10)),
                 Row(
@@ -61,7 +59,7 @@ class CourseItem extends StatelessWidget {
                       child: Text(
                         '了解更多 >',
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: FontSize.s, color: string2Color('#2B88F4')),
+                        style: TextStyle(fontSize: FontSize.s, color: Colors.blue),
                       ),
                     )
                   ],

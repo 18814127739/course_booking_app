@@ -3,6 +3,7 @@ import 'router/application.dart';
 import 'package:fluro/fluro.dart';
 import 'dart:async';
 import 'style/index.dart';
+import 'style/index.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -57,7 +58,7 @@ class LoadingState extends State<Loading> {
           left: 40,
           child: Text(
             '同\n学', 
-            style: TextStyle(fontSize: 50, color: Colors.white, decoration: TextDecoration.none)
+            style: TextStyle(fontSize: 50, color: FontColor.white, decoration: TextDecoration.none)
           ),
         ),
         Positioned(
@@ -65,7 +66,7 @@ class LoadingState extends State<Loading> {
           left: 100,
           child: Text(
             '您\n好', 
-            style: TextStyle(fontSize: 50, color: Colors.white, decoration: TextDecoration.none)
+            style: TextStyle(fontSize: 50, color: FontColor.white, decoration: TextDecoration.none)
           ),
         ),
         Positioned(
@@ -76,10 +77,9 @@ class LoadingState extends State<Loading> {
             child: Container(
               height: 24,
               width: 75,
-              // color: Colors.black54,
               decoration: BoxDecoration(
                 color: Colors.black38,
-                borderRadius:BorderRadius.all(Radius.circular(15))
+                borderRadius:BorderRadius.all(Radius.circular(Gradius.base))
               ),
               child: Center(
                 child: Text(

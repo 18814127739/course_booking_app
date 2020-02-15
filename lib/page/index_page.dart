@@ -11,30 +11,30 @@ class IndexPage extends StatefulWidget {
   IndexPageState createState() => IndexPageState();
 }
 
+const List tabs = [
+  {
+    'title': '首页',
+    'icon': Icon(Icons.home),
+  },
+  {
+    'title': '课程',
+    'icon': Icon(Icons.bookmark),
+  },
+  {
+    'title': '消息',
+    'icon': Icon(Icons.chat),
+  },
+  {
+    'title': '我的',
+    'icon': Icon(Icons.account_circle),
+  },
+];
+
 class IndexPageState extends State<IndexPage> {
   Home home; // 首页
   CourseList courseList; // 课程页
   Message message; // 消息页
   Me me; // 我的页
-
-  List tabs = [
-    {
-      'title': '首页',
-      'icon': Icon(Icons.home),
-    },
-    {
-      'title': '课程',
-      'icon': Icon(Icons.bookmark),
-    },
-    {
-      'title': '消息',
-      'icon': Icon(Icons.chat),
-    },
-    {
-      'title': '我的',
-      'icon': Icon(Icons.account_circle),
-    },
-  ];
 
   currentPage() {
     int index = Provider.of<CurrentIndexProvider>(context).curIndex;
