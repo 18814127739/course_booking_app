@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'router/application.dart';
 import 'package:fluro/fluro.dart';
 import 'dart:async';
+import 'style/index.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -53,7 +54,7 @@ class LoadingState extends State<Loading> {
         ),
         Positioned(
           top: 140,
-          left: 35,
+          left: 40,
           child: Text(
             '同\n学', 
             style: TextStyle(fontSize: 50, color: Colors.white, decoration: TextDecoration.none)
@@ -84,7 +85,7 @@ class LoadingState extends State<Loading> {
                 child: Text(
                   '${seconds}s 跳过',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: FontSize.m,
                     color: Colors.white70,
                     decoration: TextDecoration.none
                   ),

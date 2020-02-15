@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
+import '../../style/index.dart';
 
 class CourseItem extends StatelessWidget {
   String id;
@@ -43,7 +44,7 @@ class CourseItem extends StatelessWidget {
                 Text(
                   name,
                   maxLines: 1,
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: FontSize.l),
                 ),
                 Padding(padding: EdgeInsets.only(top: 5)),
                 Text(
@@ -60,7 +61,7 @@ class CourseItem extends StatelessWidget {
                       child: Text(
                         '了解更多 >',
                         textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 12, color: string2Color('#2B88F4')),
+                        style: TextStyle(fontSize: FontSize.s, color: string2Color('#2B88F4')),
                       ),
                     )
                   ],

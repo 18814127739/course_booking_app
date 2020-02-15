@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
-import '../../provider/current_index_provider.dart';
-import '../../utils/utils.dart';
 import 'banner.dart';
 import 'course_item.dart';
+import '../../provider/current_index_provider.dart';
+import '../../utils/utils.dart';
+import '../../style/index.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class HomeState extends State<Home> {
               ),
               Text(
                 item["title"],
-                style: TextStyle(fontSize: 12, color: string2Color('#9E9EA3')),
+                style: TextStyle(fontSize: FontSize.s, color: string2Color('#9E9EA3')),
               )
             ],
           ),
@@ -137,7 +138,7 @@ class HomeState extends State<Home> {
                   ),
                   Text(
                     '热门课程',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -150,7 +151,7 @@ class HomeState extends State<Home> {
                   },
                   child: Text(
                     '查看更多 >',
-                    style: TextStyle(fontSize: 12, color: string2Color('#2B88F4')),
+                    style: TextStyle(fontSize: FontSize.s, color: string2Color('#2B88F4')),
                   ),
                 ) 
               )
@@ -196,7 +197,7 @@ class HomeState extends State<Home> {
                               'Hi Pikachu',
                               maxLines: 1,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: FontSize.xl,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
