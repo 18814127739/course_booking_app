@@ -57,7 +57,7 @@ class MeState extends State<Me> {
   Widget renderLevel() {
     return Container(
       height: 40,
-      margin: EdgeInsets.fromLTRB(70, 120, 70, 0),
+      margin: EdgeInsets.fromLTRB(70, 130, 70, 0),
       padding: EdgeInsets.fromLTRB(Gpadding.s, Gpadding.s, Gpadding.s, Gpadding.s),
       decoration: BoxDecoration(
         color: string2Color('#25B187'),
@@ -98,7 +98,7 @@ class MeState extends State<Me> {
   // 学习记录
   renderLearnRecord() {
     return Container(
-      margin: EdgeInsets.fromLTRB(Gpadding.m, 155, Gpadding.m, 0),
+      margin: EdgeInsets.fromLTRB(Gpadding.m, 165, Gpadding.m, 0),
       height: 100,
       padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.s, Gpadding.m, Gpadding.s),
       decoration: BoxDecoration(
@@ -186,7 +186,7 @@ class MeState extends State<Me> {
           Stack(
             children: <Widget>[
               Container(
-                height: 180,
+                height: 200,
                 padding: EdgeInsets.only(top: Gpadding.s, left: Gpadding.m, right: Gpadding.m),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -214,13 +214,11 @@ class MeState extends State<Me> {
                                     style: TextStyle(fontSize: 22, color: FontColor.white, fontWeight: FontWeight.bold),
                                   ),
                                   GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
                                     onTap: () { showProfile(context); },
                                     child: Row(
                                       children: <Widget>[
-                                        Text(
-                                          '我的资料卡',
-                                          style: TextStyle(color: FontColor.white),
-                                        ),
+                                        Text('我的资料卡', style: TextStyle(color: FontColor.white)),
                                         Icon(Icons.chevron_right, color: Colors.white, size: 18),
                                       ],
                                     ),
@@ -257,7 +255,7 @@ class MeState extends State<Me> {
               ),
               Positioned(
                 right: 15,
-                top: 25,
+                top: 40,
                 child: Container(
                   height: 110,
                   width: 110,
@@ -277,9 +275,7 @@ class MeState extends State<Me> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Gradius.s),
-              boxShadow: [
-                Gshadow.black(0, 1, .05, 1, 0),
-              ]
+              boxShadow: [Gshadow.black(0, 1, .05, 1, 0)]
             ),
             child: Column(
               children: renderMenus(),
