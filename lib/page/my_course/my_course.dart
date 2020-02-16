@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 import '../../style/index.dart';
-import '../../utils/utils.dart';
+import '../../router/application.dart';
 import 'my_course_item.dart';
 
 class MyCourse extends StatefulWidget {
@@ -21,29 +22,39 @@ class MyCourseState extends State<MyCourse> {
   @override
   Widget build(BuildContext context) {
     List<Widget> courseList = courseData.map((item) =>
-      MyCourseItem(
-        item["id"],
-        item["name"],
-        item["image"],
-        item["total"],
-        item["finish"],
-        item["teacher"],
+      GestureDetector(
+        onTap: () {
+          Application.router.navigateTo(
+            context, '/myCourseDetail?id=${item["id"]}', transition: TransitionType.inFromRight,
+          );
+        },
+        child: MyCourseItem(
+          item["id"],
+          item["name"],
+          item["image"],
+          item["total"],
+          item["finish"],
+          item["teacher"],
+        ),
       )
     ).toList();
 
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
-        title: Text('我的课程', style: TextStyle(fontSize: FontSize.xl, color: FontColor.appBar)),
+        title: Text(
+          '我的课程', 
+          style: TextStyle(fontSize: FontSize.xxl, color: FontColor.appBar, fontWeight: FontWeight.bold)
+        ),
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () { Navigator.pop(context); },
-          icon: Icon(Icons.chevron_left),
+          icon: Icon(Icons.chevron_left, size: 32),
           color: FontColor.appBar,
         ),
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.l, Gpadding.m, 0),
+        padding: EdgeInsets.only(top: Gpadding.l),
         color: Colors.white,
         child: ListView(
           children: courseList,

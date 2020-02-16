@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluro/fluro.dart';
-import '../../router/application.dart';
 import '../../utils/utils.dart';
 import '../../style/index.dart';
 
@@ -18,7 +16,7 @@ class MyCourseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(Gpadding.s),
-      margin: EdgeInsets.only(bottom: Gpadding.l),
+      margin: EdgeInsets.only(bottom: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Gradius.s),
         color: Colors.white,
@@ -71,7 +69,7 @@ class MyCourseItem extends StatelessWidget {
               Expanded(
                 // 通过SizeBox包裹进度条设置进度条高度
                 child: SizedBox(
-                  height: 3,
+                  height: 4,
                   child: LinearProgressIndicator(
                     backgroundColor: string2Color('#DCDCDC'),
                     valueColor: AlwaysStoppedAnimation(Colors.blue),
