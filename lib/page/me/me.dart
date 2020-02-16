@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
+import '../../router/application.dart';
 import '../../style/index.dart';
 import '../../utils/utils.dart';
 import 'ProfileDialog.dart';
@@ -10,15 +12,38 @@ class Me extends StatefulWidget {
 
 class MeState extends State<Me> {
   final List menuData = [
-    {"title": "我的课程", "icon": "assets/icons/me/course.png", "url": ""},
-    {"title": "个人信息", "icon": "assets/icons/me/profile.png", "url": ""},
-    {"title": "课堂情况", "icon": "assets/icons/me/situation.png", "url": ""},
-    {"title": "成长记录", "icon": "assets/icons/me/grow.png", "url": ""},
-    {"title": "我的评价", "icon": "assets/icons/me/comment.png", "url": ""},
+    {"title": "我的课程", "icon": "assets/icons/me/course.png", "url": "myCourse"},
+    {"title": "个人信息", "icon": "assets/icons/me/profile.png", "url": null},
+    {"title": "课堂情况", "icon": "assets/icons/me/situation.png", "url": null},
+    {"title": "成长记录", "icon": "assets/icons/me/grow.png", "url": null},
+    {"title": "我的评价", "icon": "assets/icons/me/comment.png", "url": null},
   ];
 
+  @override
+  void initState() {
+    print('me in');
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    print('me out');
+    super.dispose();
+  }
+
   void onClickMenuItem(Map<String, String> item) {
-    print('${item["title"]} ${item["url"]}');
+    if(item["url"] != null) {
+      Application.router.navigateTo(context, item["url"], transition: TransitionType.fadeIn);
+    } else {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '${item["title"]}尚未开发'
+          ),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   // 我的资料卡弹层

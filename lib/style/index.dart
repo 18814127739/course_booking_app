@@ -27,6 +27,7 @@ class FontColor {
   static Color black = Colors.black;
   static Color white = Colors.white;
   static Color red = string2Color('#FF3E30');
+  static Color appBar = Colors.black87;
 }
 
 class Gradius {

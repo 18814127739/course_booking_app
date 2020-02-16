@@ -11,5 +11,7 @@ class Routes {
     );
     // 主页路由
     router.define('/', handler: rootHandler);
+    // 我的课程
+    router.define('/myCourse', handler: myCourseHandler);
   }
 }
