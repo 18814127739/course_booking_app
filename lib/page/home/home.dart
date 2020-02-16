@@ -123,11 +123,7 @@ class HomeState extends State<Home> {
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [
-          BoxShadow(
-            color: Colors.grey[100], //阴影颜色
-            blurRadius: 1.0, //模糊值
-            spreadRadius: 1.0, //扩展阴影半径
-          )
+          Gshadow.black(0, 1, .05, 1, 0)
         ],
       ),
       child: Column(
@@ -139,7 +135,7 @@ class HomeState extends State<Home> {
               Row(
                 children: <Widget>[
                   Container(
-                    color: string2Color('#2B88F4'),
+                    color: Colors.blue,
                     width: 6,
                     height: 20,
                     margin: EdgeInsets.only(right: 10),
@@ -159,7 +155,7 @@ class HomeState extends State<Home> {
                   },
                   child: Text(
                     '查看更多 >',
-                    style: TextStyle(fontSize: FontSize.s, color: string2Color('#2B88F4')),
+                    style: TextStyle(fontSize: FontSize.s, color: Colors.blue),
                   ),
                 ) 
               )
@@ -180,54 +176,44 @@ class HomeState extends State<Home> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    height: 220,
-                    padding: EdgeInsets.only(top: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(37, 177, 135, 0.57),
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(40.0),
-                          bottomRight: Radius.circular(40.0)),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/images/avatar.jpeg'),
-                              radius: 30,
-                            ),
-                            Padding(padding: EdgeInsets.only(left: Gpadding.m)),
-                            Text(
-                              'Hi Pikachu',
-                              maxLines: 1,
-                              style: TextStyle(
-                                fontSize: FontSize.xl,
-                                color: FontColor.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Flexible(child: Container()),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
               Container(
-                padding:
-                    EdgeInsets.all(Gpadding.m),
+                height: 220,
+                padding: EdgeInsets.only(top: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(37, 177, 135, 0.6),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0)),
+                ),
                 child: Column(
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(top: 80)),
-                    HomeBanner(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/images/avatar.jpeg'),
+                          radius: 30,
+                        ),
+                        Padding(padding: EdgeInsets.only(left: Gpadding.m)),
+                        Text(
+                          'Hi Pikachu',
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: FontSize.xl,
+                            color: FontColor.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Flexible(child: Container()),
                   ],
                 ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80, Gpadding.m, Gpadding.m),
+                child: HomeBanner(),
               ),
             ],
           ),

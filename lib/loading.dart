@@ -79,7 +79,7 @@ class LoadingState extends State<Loading> {
               width: 75,
               decoration: BoxDecoration(
                 color: Colors.black38,
-                borderRadius:BorderRadius.all(Radius.circular(Gradius.base))
+                borderRadius:BorderRadius.all(Gradius.base)
               ),
               child: Center(
                 child: Text(

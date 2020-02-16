@@ -64,6 +64,13 @@ flutter:
     - assets/images/courses/4.png
     - assets/images/courses/5.png
 
+    - assets/icons/me/medal.png
+    - assets/icons/me/course.png
+    - assets/icons/me/profile.png
+    - assets/icons/me/situation.png
+    - assets/icons/me/comment.png
+    - assets/icons/me/grow.png
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

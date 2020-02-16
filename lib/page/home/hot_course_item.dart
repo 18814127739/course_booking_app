@@ -18,12 +18,7 @@ class HotCourseItem extends StatelessWidget {
         // 可以传入多个形成组合阴影效果
         color: Colors.white,
         boxShadow: [
-          BoxShadow(
-            color: Colors.grey[300], //阴影颜色
-            blurRadius: 1.0, //模糊值
-            spreadRadius: 1.5, //扩展阴影半径
-            offset: Offset(0, 2.0), //x/y方向偏移量
-          )
+          Gshadow.black(0, 2, .12, 2, 0),
         ],
       ),
       child: Row(
