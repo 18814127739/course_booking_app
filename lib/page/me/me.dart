@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../style/index.dart';
 import '../../utils/utils.dart';
+import 'ProfileDialog.dart';
 
 class Me extends StatefulWidget {
   @override
@@ -16,9 +17,18 @@ class MeState extends State<Me> {
     {"title": "我的评价", "icon": "assets/icons/me/comment.png", "url": ""},
   ];
 
-
   void onClickMenuItem(Map<String, String> item) {
     print('${item["title"]} ${item["url"]}');
+  }
+
+  // 我的资料卡弹层
+  void showProfile(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ProfileDialog();
+      },
+    );
   }
 
   AppBar renderAppBar() => AppBar(
@@ -42,6 +52,89 @@ class MeState extends State<Me> {
       )
     ],
   );
+
+  // 等级区域
+  Widget renderLevel() {
+    return Container(
+      height: 40,
+      margin: EdgeInsets.fromLTRB(70, 120, 70, 0),
+      padding: EdgeInsets.fromLTRB(Gpadding.s, Gpadding.s, Gpadding.s, Gpadding.s),
+      decoration: BoxDecoration(
+        color: string2Color('#25B187'),
+        borderRadius: BorderRadius.only(topLeft: Gradius.s, topRight: Gradius.s),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            '等级 Lv0',
+            style: TextStyle(fontSize: FontSize.s, color: FontColor.white),
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                '我的积分 1000',
+                style: TextStyle(fontSize: FontSize.s, color: FontColor.white),
+              ),
+              Padding(padding: EdgeInsets.only(right: Gpadding.xs)),
+              Container(
+                height: 20,
+                width: 20,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: string2Color('#4C4C4C')),
+                  borderRadius: BorderRadius.all(Gradius.s),
+                ),
+                child: Icon(
+                  Icons.chevron_right, size: 14,color: string2Color('#FCC53A'),
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  // 学习记录
+  renderLearnRecord() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(Gpadding.m, 155, Gpadding.m, 0),
+      height: 100,
+      padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.s, Gpadding.m, Gpadding.s),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Gradius.s),
+        boxShadow: [
+          Gshadow.black(0, 3, .16, 6, 0),
+        ]
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            '我的学习记录',
+            style: TextStyle(fontSize: FontSize.l, fontWeight: FontWeight.bold),
+          ),
+          Padding(padding: EdgeInsets.only(top: Gpadding.m)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                child: renderColumn('学习时长(分钟)', '100'),
+              ),
+              renderVerticalDivider(),
+              Expanded(
+                child: renderColumn('课程数量', '5'),
+              ),
+              renderVerticalDivider(),
+              Expanded(
+                child: renderColumn('个人成绩', 'A')
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
   // 学习记录item
   Widget renderColumn(String title, String value) {
@@ -72,7 +165,7 @@ class MeState extends State<Me> {
     return menuData.map((item) => 
       Container(
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 1, color: BgColor.grey))
+          border: Border(bottom: BorderSide(width: 1, color: string2Color('#f3f3f3')))
         ),
         child: ListTile(
           onTap: () { onClickMenuItem(item); },
@@ -94,7 +187,7 @@ class MeState extends State<Me> {
             children: <Widget>[
               Container(
                 height: 180,
-                padding: EdgeInsets.only(left: Gpadding.m, right: Gpadding.m),
+                padding: EdgeInsets.only(top: Gpadding.s, left: Gpadding.m, right: Gpadding.m),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color.fromRGBO(45, 118, 202, 0.8), Color.fromRGBO(72, 131, 202, 0.8)],
@@ -120,14 +213,17 @@ class MeState extends State<Me> {
                                     '唐东东',
                                     style: TextStyle(fontSize: 22, color: FontColor.white, fontWeight: FontWeight.bold),
                                   ),
-                                  Row(
-                                    children: <Widget>[
-                                      Text(
-                                        '我的资料卡',
-                                        style: TextStyle(color: FontColor.white),
-                                      ),
-                                      Icon(Icons.chevron_right, color: Colors.white, size: 18),
-                                    ],
+                                  GestureDetector(
+                                    onTap: () { showProfile(context); },
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text(
+                                          '我的资料卡',
+                                          style: TextStyle(color: FontColor.white),
+                                        ),
+                                        Icon(Icons.chevron_right, color: Colors.white, size: 18),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -160,8 +256,8 @@ class MeState extends State<Me> {
                 ),
               ),
               Positioned(
-                right: 20,
-                top: 20,
+                right: 15,
+                top: 25,
                 child: Container(
                   height: 110,
                   width: 110,
@@ -171,81 +267,8 @@ class MeState extends State<Me> {
                   ),
                 ),
               ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.fromLTRB(70, 120, 70, 0),
-                padding: EdgeInsets.fromLTRB(Gpadding.s, Gpadding.s, Gpadding.s, Gpadding.s),
-                decoration: BoxDecoration(
-                  color: string2Color('#25B187'),
-                  borderRadius: BorderRadius.all(Gradius.s),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      '等级 Lv0',
-                      style: TextStyle(fontSize: FontSize.s, color: FontColor.white),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          '我的积分 1000',
-                          style: TextStyle(fontSize: FontSize.s, color: FontColor.white),
-                        ),
-                        Padding(padding: EdgeInsets.only(right: Gpadding.xs)),
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 2, color: string2Color('#4C4C4C')),
-                            borderRadius: BorderRadius.all(Gradius.s),
-                          ),
-                          child: Icon(
-                            Icons.chevron_right, size: 14,color: string2Color('#FCC53A'),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(Gpadding.m, 155, Gpadding.m, 0),
-                height: 100,
-                padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.s, Gpadding.m, Gpadding.s),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Gradius.s),
-                  boxShadow: [
-                    Gshadow.black(0, 3, .16, 6, 0),
-                  ]
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      '我的学习记录',
-                      style: TextStyle(fontSize: FontSize.l, fontWeight: FontWeight.bold),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: Gpadding.m)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: renderColumn('学习时长(分钟)', '100'),
-                        ),
-                        renderVerticalDivider(),
-                        Expanded(
-                          child: renderColumn('课程数量', '5'),
-                        ),
-                        renderVerticalDivider(),
-                        Expanded(
-                          child: renderColumn('个人成绩', 'A')
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              renderLevel(),
+              renderLearnRecord(),
             ],
           ),
           Container(

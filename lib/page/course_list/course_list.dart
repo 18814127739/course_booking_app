@@ -49,6 +49,7 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
   @override
   void dispose() {
     print('courseList out');
+    tabController.dispose();
     super.dispose();
   }
 

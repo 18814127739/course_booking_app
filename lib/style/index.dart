@@ -32,6 +32,7 @@ class FontColor {
 class Gradius {
   static const Radius s = Radius.circular(10);
   static const Radius base = Radius.circular(15);
+  static const Radius l = Radius.circular(20);
 }
 
 class BgColor {

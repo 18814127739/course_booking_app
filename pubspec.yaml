@@ -70,6 +70,8 @@ flutter:
     - assets/icons/me/situation.png
     - assets/icons/me/comment.png
     - assets/icons/me/grow.png
+    - assets/icons/me/man.png
+    - assets/icons/me/woman.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
