@@ -71,7 +71,7 @@ class MyCourseItem extends StatelessWidget {
                 child: SizedBox(
                   height: 4,
                   child: LinearProgressIndicator(
-                    backgroundColor: string2Color('#DCDCDC'),
+                    backgroundColor: FontColor.divider,
                     valueColor: AlwaysStoppedAnimation(Colors.blue),
                     value: finish / total,
                   ),

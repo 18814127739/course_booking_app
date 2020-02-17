@@ -63,6 +63,7 @@ flutter:
     - assets/images/courses/3.png
     - assets/images/courses/4.png
     - assets/images/courses/5.png
+    - assets/images/courses/6.png
 
     - assets/icons/me/medal.png
     - assets/icons/me/course.png
@@ -72,6 +73,7 @@ flutter:
     - assets/icons/me/grow.png
     - assets/icons/me/man.png
     - assets/icons/me/woman.png
+    - assets/icons/location.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

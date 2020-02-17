@@ -15,5 +15,7 @@ class Routes {
     router.define('/myCourse', handler: myCourseHandler);
     // 我的课程详情
     router.define('/myCourseDetail', handler: myCourseDetailHandler);
+    // 课程详情页
+    router.define('/courseDetail', handler: courseDetailHandler);
   }
 }

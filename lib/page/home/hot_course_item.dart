@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
+import '../../router/application.dart';
 import '../../style/index.dart';
 
 class HotCourseItem extends StatelessWidget {
@@ -50,7 +52,9 @@ class HotCourseItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () { print(name); },
+                      onTap: () { 
+                        Application.router.navigateTo(context, '/courseDetail?id=${id}', transition: TransitionType.fadeIn);
+                      },
                       child: Text(
                         '了解更多 >',
                         textAlign: TextAlign.right,

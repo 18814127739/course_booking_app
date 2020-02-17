@@ -105,7 +105,7 @@ class MyCourseDetailState extends State<MyCourseDetail> {
     Widget renderVerticalDivider() => Container(
       width: 1,
       height: 14,
-      color: string2Color('#DCDCDC'),
+      color: FontColor.divider,
     );
 
     Widget renderColumn(String title, int value) => Column(
@@ -170,7 +170,7 @@ class MyCourseDetailState extends State<MyCourseDetail> {
                 child: SizedBox(
                   height: 4,
                   child: LinearProgressIndicator(
-                    backgroundColor: string2Color('#DCDCDC'),
+                    backgroundColor: FontColor.divider,
                     valueColor: AlwaysStoppedAnimation(Colors.blue),
                     value: detail.finish / detail.total,
                   ),
@@ -258,7 +258,7 @@ class MyCourseDetailState extends State<MyCourseDetail> {
               1: FixedColumnWidth(columnWidth),
               2: FixedColumnWidth(columnWidth),
             },
-            border: TableBorder.all(color: string2Color('#DCDCDC'), width: 1, style: BorderStyle.solid),
+            border: TableBorder.all(color: FontColor.divider, width: 1, style: BorderStyle.solid),
             children: [
               // 表头
               TableRow(

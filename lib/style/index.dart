@@ -30,9 +30,12 @@ class FontColor {
   static Color appBar = Colors.black87;
   static Color yellow = string2Color('#FFA200');
   static Color green = string2Color('#45B615');
+  static Color blue = string2Color('#4696ec');
+  static Color divider = string2Color('#DCDCDC');
 }
 
 class Gradius {
+  static const Radius xs = Radius.circular(5);
   static const Radius s = Radius.circular(10);
   static const Radius base = Radius.circular(15);
   static const Radius l = Radius.circular(20);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
-import 'banner.dart';
 import 'hot_course_item.dart';
+import '../common_widget/banner.dart';
 import '../../provider/current_index_provider.dart';
 import '../../utils/utils.dart';
 import '../../style/index.dart';
@@ -169,6 +169,14 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> bannerData = [
+      'assets/images/banners/5.png',
+    'assets/images/banners/1.jpeg',
+    'assets/images/banners/2.jpeg',
+    'assets/images/banners/3.jpeg',
+    'assets/images/banners/4.jpeg',
+    ];
+
     // 设置状态颜色
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
@@ -213,7 +221,7 @@ class HomeState extends State<Home> {
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80, Gpadding.m, Gpadding.m),
-                child: HomeBanner(),
+                child: MyBanner(bannerData),
               ),
             ],
           ),
