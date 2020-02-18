@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-import '../../model/comment_model.dart';
 import '../../router/application.dart';
 import '../../style/index.dart';
 

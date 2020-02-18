@@ -16,33 +16,6 @@ class CommentItem extends StatelessWidget {
     }
     bool isShow = this.isShowImgs && imgs.length > 0;
 
-    Widget renderImgs() {
-      if(isShow) {
-        return SizedBox(
-          height: 100,
-          child: ListView(
-            // 横向滚动, 外层元素必须设置高度
-            scrollDirection: Axis.horizontal,
-            children: imgs.map((item) => 
-              Container(
-                margin: EdgeInsets.only(right: Gpadding.s),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Gradius.xs),
-                ),
-                height: 100,
-                width: 100,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.asset(item, fit: BoxFit.cover),
-                ),
-              )
-            ).toList(),
-          ),
-        ); 
-      }
-      return Container();
-    }
-
     return Column(
       children: <Widget>[
         Row(
@@ -70,7 +43,7 @@ class CommentItem extends StatelessWidget {
                             (index) => Icon(Icons.star, size: 16, color: FontColor.yellow)
                           ).toList(),
                           ...List.generate(
-                            5 - comment.score, 
+                            5 - comment.score,
                             (index) => Icon(Icons.star_border, size: 16, color: FontColor.grey)
                           ).toList(),
                         ],
@@ -93,8 +66,28 @@ class CommentItem extends StatelessWidget {
           maxLines: 2,
           style: TextStyle(fontSize: FontSize.s, color: FontColor.black),
         ),
-        Padding(padding: EdgeInsets.only(top: isShow ? Gpadding.m : 0)),
-        renderImgs(),
+        if(isShow) Padding(padding: EdgeInsets.only(top: Gpadding.m)),
+        if(isShow) SizedBox(
+          height: 100,
+          child: ListView(
+            // 横向滚动, 外层元素必须设置高度
+            scrollDirection: Axis.horizontal,
+            children: imgs.map((item) => 
+              Container(
+                margin: EdgeInsets.only(right: Gpadding.s),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Gradius.xs),
+                ),
+                height: 100,
+                width: 100,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset(item, fit: BoxFit.cover),
+                ),
+              )
+            ).toList(),
+          ),
+        ),
       ],
     );
   }
