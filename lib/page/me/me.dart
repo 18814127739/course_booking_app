@@ -190,7 +190,7 @@ class MeState extends State<Me> {
     return menuData.map((item) => 
       Container(
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 1, color: string2Color('#f3f3f3')))
+          border: Border(bottom: BorderSide(width: 1, color: FontColor.wDivider)),
         ),
         child: ListTile(
           onTap: () { onClickMenuItem(item); },

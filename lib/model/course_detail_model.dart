@@ -6,6 +6,9 @@ class CourseDetailModel {
   String orgName; // 机构名称
   String orgPhone; // 机构电话
   String orgAddr; // 机构地址
+  String orgFoundedTime; // 机构创办时间
+  String orgConcept; // 办学理念
+  String orgInfo; // 机构介绍
   double price;
   double dailyPrice; // 原价
 
@@ -21,6 +24,9 @@ class CourseDetailModel {
     orgName = json["orgName"];
     orgPhone = json["orgPhone"];
     orgAddr = json["orgAddr"];
+    orgFoundedTime = json["orgFoundedTime"];
+    orgConcept = json["orgConcept"];
+    orgInfo = json["orgInfo"];
     price = json["price"];
     dailyPrice = json["dailyPrice"];
   }

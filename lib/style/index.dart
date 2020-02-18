@@ -32,6 +32,7 @@ class FontColor {
   static Color green = string2Color('#45B615');
   static Color blue = string2Color('#4696ec');
   static Color divider = string2Color('#DCDCDC');
+  static Color wDivider = string2Color('#f3f3f3'); // 弱分割线
 }
 
 class Gradius {

@@ -111,7 +111,6 @@ class ProfileDialog extends StatelessWidget {
               ]
             ),
           ),
-          // Divider(height: 1, color: string2Color('#F3F3F3'),),
         ],
       ),
     );
