@@ -17,5 +17,7 @@ class Routes {
     router.define('/myCourseDetail', handler: myCourseDetailHandler);
     // 课程详情页
     router.define('/courseDetail', handler: courseDetailHandler);
+    // 评价列表
+    router.define('/commentList', handler: commentListHandler);
   }
 }

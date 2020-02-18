@@ -4,6 +4,7 @@ import '../page/index_page.dart';
 import '../page/my_course/my_course.dart';
 import '../page/my_course_detail/my_course_detail.dart';
 import '../page/course_detail/course_detail.dart';
+import '../page/comment_list/comment_list.dart';
 
 Handler rootHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -26,5 +27,13 @@ Handler myCourseDetailHandler = Handler(
 Handler courseDetailHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return CourseDetail(params["id"].first);
+  }
+);
+
+Handler commentListHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    double price = double.parse(params["price"].first);
+    double dailyPrice = double.parse(params["dailyPrice"].first);
+    return CommentList(params["id"].first, price, dailyPrice);
   }
 );

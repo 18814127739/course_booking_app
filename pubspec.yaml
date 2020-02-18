@@ -64,6 +64,7 @@ flutter:
     - assets/images/courses/4.png
     - assets/images/courses/5.png
     - assets/images/courses/6.png
+    - assets/images/comment.png
 
     - assets/icons/me/medal.png
     - assets/icons/me/course.png

@@ -6,7 +6,8 @@ import '../../model/course_detail_model.dart';
 import '../../style/index.dart';
 import '../../utils/utils.dart';
 import '../common_widget/banner.dart';
-import 'comment_item.dart';
+import '../common_widget/bottom_bar.dart';
+import '../common_widget/comment_item.dart';
 
 class CourseDetail extends StatefulWidget {
   String id;
@@ -54,16 +55,14 @@ class CourseDetailState extends State<CourseDetail> {
       卓越教育目前每年就读学生超过30万人次，拥有一支逾3000名优秀教师的师资队伍，开设了包括辅导班、一对一个性辅导、全日制高四(高考复读)、全日制初四(中考复读)在内100多个校区，遍布广州、上海、深圳、成都、佛山、珠海、东莞、中山、揭阳等城市，2010年、2011年连续两年入围“德勤高科技、高成长中国50强”，多年来获得多项来自政府、社会、媒体授予的奖项和荣誉。
       """
     });
-    comments = List.generate(5, (index) {
-      return CommentModel.fromJson({
-        "id": "$index",
-        "userName": "丽丽妈妈",
-        "score": 4,
-        "avatar": "assets/images/dog.jpeg",
-        "date": "2018-10-10 10:00:00",
-        "content": "老师认真负责，孩子说课堂十分有趣，自己收货颇多，希望能有效提高孩子成绩。",
-      });
-    }).toList();
+    comments = List.generate(5, (index) => CommentModel.fromJson({
+      "id": "$index",
+      "userName": "丽丽妈妈",
+      "score": 4,
+      "avatar": "assets/images/dog.jpeg",
+      "date": "2018-10-10 10:00:00",
+      "content": "老师认真负责，孩子说课堂十分有趣，自己收获颇多，希望能有效提高孩子成绩。",
+    })).toList();
     super.initState();
   }
 
@@ -89,6 +88,14 @@ class CourseDetailState extends State<CourseDetail> {
     setState(() {
       detail.like = !detail.like;
     });
+  }
+
+  void checkComments() {
+    Application.router.navigateTo(
+      context,
+      '/commentList?id=${detail.id}&price=${detail.price}&dailyPrice=${detail.dailyPrice}',
+      transition: TransitionType.fadeIn,
+    );
   }
 
   // 显示学校简介
@@ -171,11 +178,6 @@ class CourseDetailState extends State<CourseDetail> {
       },
     );
     print(res);
-  }
-
-  // 预约
-  void bookCourse() {
-    print('book');
   }
 
   // 透明背景顶部栏
@@ -334,7 +336,7 @@ class CourseDetailState extends State<CourseDetail> {
           children: <Widget>[
             Text('全网评价', style: TextStyle(color: Colors.black87)),
             GestureDetector(
-              onTap: () { print('评价'); },
+              onTap: checkComments,
               child: Row(
                 children: <Widget>[
                   Text(
@@ -347,57 +349,23 @@ class CourseDetailState extends State<CourseDetail> {
             ),
           ],
         ),
-        ...comments.map((item) => CommentItem(item)).toList(),
-      ],
-    ),
-  );
-
-  Widget renderBottomBar(double deviceWidth) =>
-  Positioned(
-    bottom: 0,
-    child: Container(
-      width: deviceWidth,
-      padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.s, Gpadding.m, Gpadding.s),
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                '¥${detail.price}',
-                style: TextStyle(color: FontColor.red, fontSize: FontSize.xxl, fontWeight: FontWeight.bold),
-              ),
-              Padding(padding: EdgeInsets.only(right: Gpadding.xs)),
-              Text(
-                '日常价: ¥${detail.dailyPrice}',
-                style: TextStyle(color: Colors.black87, fontSize: FontSize.s),
-              ),
-            ],
-          ),
-          GestureDetector(
-            onTap: bookCourse,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(Gpadding.l, Gpadding.xs, Gpadding.l, Gpadding.xs),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Gradius.base),
-              ),
-              child: Text(
-                '免费预约',
-                style: TextStyle(color: FontColor.white),
-              ),
+        ...comments.map((item) => 
+          Container(
+            margin: EdgeInsets.only(top: Gpadding.s),
+            padding: EdgeInsets.all(Gpadding.s),
+            decoration: BoxDecoration(
+              color: BgColor.grey,
+              borderRadius: BorderRadius.all(Gradius.xs),
             ),
+            child:CommentItem(item, false),
           ),
-        ],
-      ),
+        ).toList(),
+      ],
     ),
   );
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
     List<String> bannerData = detail.images.split(',');
 
     return Scaffold(
@@ -442,7 +410,7 @@ class CourseDetailState extends State<CourseDetail> {
                 return whiteBar(context);
               },
             ),
-            renderBottomBar(deviceWidth),
+            BottomBar(detail.id, detail.price, detail.dailyPrice),
           ],
         ),
       ),
