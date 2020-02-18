@@ -27,19 +27,15 @@ class CourseDetailState extends State<CourseDetail> {
   @override
   void initState() {
     scrollController.addListener(() {
-      print(scrollController.offset);
-      // 根据滑动距离切换导航栏
-      if(scrollController.offset > 40) {
-        setState(() {
-          whiteBarOpacity = 1;
-          transparentBarOpacity = 0;
-        });
-      } else {
-        setState(() {
-          whiteBarOpacity = 0;
-          transparentBarOpacity = 1;
-        });
-      }
+      // 将滑动距离简化成整数
+      int offset = int.parse(scrollController.offset.toStringAsFixed(0));
+      // 根据滑动距离切换导航栏透明度
+      setState(() {
+        if(offset < 100 && offset > 0) {
+          whiteBarOpacity = offset * 0.01;
+          transparentBarOpacity = 1 - whiteBarOpacity;
+        }
+      });
     });
     // 初始化课程详情数据
     detail = CourseDetailModel.fromJson({
