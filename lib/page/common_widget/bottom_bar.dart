@@ -25,7 +25,12 @@ class BottomBar extends StatelessWidget {
       child: Container(
         width: deviceWidth,
         padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.s, Gpadding.m, Gpadding.s),
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            Gshadow.black(0, -1, 0.1, 2, 0)
+          ]
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

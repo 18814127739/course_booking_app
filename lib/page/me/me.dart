@@ -3,7 +3,7 @@ import 'package:fluro/fluro.dart';
 import '../../router/application.dart';
 import '../../style/index.dart';
 import '../../utils/utils.dart';
-import 'ProfileDialog.dart';
+import 'profileDialog.dart';
 
 class Me extends StatefulWidget {
   @override
