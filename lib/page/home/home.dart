@@ -6,6 +6,7 @@ import '../common_widget/banner.dart';
 import '../../provider/current_index_provider.dart';
 import '../../utils/utils.dart';
 import '../../style/index.dart';
+import '../../model/course_model.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,9 +23,18 @@ const List menuData = [
 ];
 
 class HomeState extends State<Home> {
+  List<CourseModel> courseList;
+
   @override
   void initState() {
     print('home in');
+    List<String> type = ["音乐", "语文", "美术", "数学"];
+    courseList = List.generate(4, (index) => CourseModel.fromJson({
+      "id": "$index",
+      "image": "assets/images/courses/${index + 1}.png",
+      "desc": "名师教学、保证高分、一对一辅导",
+      "name": "${type[index]}趣味课堂",
+    }));
     super.initState();
   }
 
@@ -85,37 +95,6 @@ class HomeState extends State<Home> {
 
   // 热门课程
   Widget renderHotCourses(BuildContext context) {
-    List courseData = [
-      {
-        "id": "1", 
-        "name": '音乐趣味课堂', 
-        "desc": "名师教学、保证高分、一对一辅导",
-        "image": "assets/images/courses/1.png"
-      },
-      {
-        "id": "2", 
-        "name": '语文趣味课堂', 
-        "desc": "名师教学、保证高分、一对一辅导",
-        "image": "assets/images/courses/2.png"
-      },
-      {
-        "id": "3", 
-        "name": '美术趣味课堂', 
-        "desc": "名师教学、保证高分、一对一辅导",
-        "image": "assets/images/courses/3.png"
-      },
-      {
-        "id": "4", 
-        "name": '数学趣味课堂', 
-        "desc": "名师教学、保证高分、一对一辅导",
-        "image": "assets/images/courses/4.png"
-      },
-    ];
-
-    List<Widget> courseList = courseData.map((item) => 
-      HotCourseItem(item["id"], item["name"], item["desc"], item["image"])
-    ).toList();
-
     return Container(
       margin: EdgeInsets.only(left: Gpadding.m, right: Gpadding.m, bottom: Gpadding.xxl),
       padding: EdgeInsets.all(Gpadding.m),
@@ -161,7 +140,8 @@ class HomeState extends State<Home> {
               )
             ],
           ),
-          ...courseList,
+          // 热门课程列表
+          ... courseList.map((CourseModel item) => HotCourseItem(item)).toList(),
         ],
       ),
     );
@@ -176,8 +156,9 @@ class HomeState extends State<Home> {
     'assets/images/banners/3.jpeg',
     'assets/images/banners/4.jpeg',
     ];
-
     // 设置状态颜色
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
     return Scaffold(
       // 没有appbar时, 使用safeArea包裹使界面在iphoneX的刘海屏幕中正常显示
       body: SafeArea(

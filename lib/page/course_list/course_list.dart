@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'course_item.dart';
 import '../../utils/utils.dart';
 import '../../style/index.dart';
+import '../../model/course_model.dart';
 
 class CourseList extends StatefulWidget {
   @override
@@ -10,29 +11,28 @@ class CourseList extends StatefulWidget {
 }
 
 class CourseListState extends State<CourseList> with SingleTickerProviderStateMixin {
+  List<CourseModel> courseList;
   // tab控制器
   TabController tabController;
   List<Map<String, dynamic>> tabs;
   bool tabVisible = true;
 
-  List<Map<String, dynamic>> courseList = List.generate(5, (int index) => ({
-    "id": "$index", 
-    "name": "寒假全期小/初/高数学辅导班", 
-    "desc": "名师辅导 一对一教学", 
-    "image": "assets/images/courses/${index + 1}.png", 
-    "price": 59.00, 
-    "bookNum": 100
-  }));
-
   @override
   void initState() {
     print('courseList in');
+    List<CourseModel> courseList = List.generate(5, (int index) => CourseModel.fromJson({
+      "id": "$index", 
+      "name": "寒假全期小/初/高数学辅导班", 
+      "desc": "名师辅导 一对一教学", 
+      "image": "assets/images/courses/${index + 1}.png", 
+      "price": 59.00, 
+      "bookNum": 100
+    }));
     tabs = [
       { "value": "1", "label": "全部", "data": courseList},
       { "value": "2", "label": "推荐", "data": courseList},
       { "value": "3", "label": "热门", "data": courseList},
       { "value": "4", "label": "物理", "data": courseList},
-      { "value": "5", "label": "数学", "data": courseList},
       { "value": "5", "label": "数学", "data": courseList},
     ];
     tabController = TabController(length: tabs.length, vsync: this);
@@ -62,12 +62,6 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
     setState(() {
       tabVisible = !tabVisible;
     });
-  }
-
-  List<Widget> renderCourseList(List<Map<String, dynamic>> courseList) {
-    return courseList.map((Map<String, dynamic> c) => 
-      CourseItem(c["id"], c["name"], c["desc"], c["image"], c["price"], c["bookNum"])
-    ).toList();
   }
 
   AppBar renderAppBar() {
@@ -138,6 +132,13 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
 
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> renderCourseList(List<CourseModel> courseList) {
+      return courseList.map((CourseModel c) => 
+        CourseItem(c)
+      ).toList();
+    }
+
     // 使用DefaultTabController关联TabBar及TabBarView
     return DefaultTabController(
       length: tabs.length,

@@ -2,40 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import '../../router/application.dart';
 import '../../style/index.dart';
+import '../../model/course_model.dart';
 
 class CourseItem extends StatelessWidget {
-  String id;
-  String name;
-  String desc;
-  String image;
-  double price;
-  int bookNum = 0;
-
-  CourseItem(
-    @required this.id,
-    @required this.name,
-    @required this.desc,
-    @required this.image,
-    @required this.price,
-    @required this.bookNum
-  );
+  CourseModel course;
+  
+  CourseItem(@required this.course);
 
   void showMore() {
-    print('$id more');
+    print('${course.id} more');
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Application.router.navigateTo(context, '/courseDetail?id=${id}', transition: TransitionType.fadeIn);
+        Application.router.navigateTo(context, '/courseDetail?id=${course.id}', transition: TransitionType.fadeIn);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: Gpadding.l),
         child: Row(
           children: <Widget>[
             Image.asset(
-              image,
+              course.image,
               width: 98,
               height: 98,
               fit: BoxFit.cover,
@@ -46,13 +35,13 @@ class CourseItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    name,
+                    course.name,
                     maxLines: 1,
                     style: TextStyle(color: FontColor.black),
                   ),
                   Padding(padding: EdgeInsets.only(bottom: Gpadding.xs)),
                   Text(
-                    desc,
+                    course.desc,
                     maxLines: 1,
                     style: TextStyle(fontSize: FontSize.s, color: FontColor.grey),
                   ),
@@ -65,7 +54,7 @@ class CourseItem extends StatelessWidget {
                         style: TextStyle(fontSize: FontSize.s, color: FontColor.red),
                       ),
                       Text(
-                        '$price',
+                        '${course.price}',
                         style: TextStyle(fontSize: FontSize.xl, color: FontColor.red),
                       ),
                     ],
@@ -75,7 +64,7 @@ class CourseItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        '${bookNum}人已付款',
+                        '${course.bookNum}人已付款',
                         style: TextStyle(fontSize: FontSize.s, color: FontColor.grey),
                       ),
                       GestureDetector(

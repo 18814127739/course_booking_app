@@ -5,29 +5,29 @@ import '../../utils/utils.dart';
 class ProfileDialog extends StatelessWidget {
   
   Widget renderModelColumn(String title, String value) {
-      return Expanded(
-        child: Column(
-          children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(fontSize: FontSize.s, color: FontColor.grey),
-            ),
-            Padding(padding: EdgeInsets.only(top: 2)),
-            Text(
-              value,
-              style: TextStyle(color: string2Color('#44444F'), fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-      ); 
-    }
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(fontSize: FontSize.s, color: FontColor.grey),
+          ),
+          Padding(padding: EdgeInsets.only(top: 2)),
+          Text(
+            value,
+            style: TextStyle(color: string2Color('#44444F'), fontWeight: FontWeight.bold),
+          )
+        ],
+      ),
+    ); 
+  }
 
   @override
   Widget build(BuildContext context) {
     return  AlertDialog(
       contentPadding: EdgeInsets.all(0),
       // 让弹层背景透明
-      backgroundColor: Color.fromRGBO(0, 0, 0, 0), 
+      backgroundColor: Colors.transparent, 
       content: Stack(
         children: <Widget>[
           Container(

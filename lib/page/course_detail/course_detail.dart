@@ -116,8 +116,8 @@ class CourseDetailState extends State<CourseDetail> {
 
     final res = await showModalBottomSheet(
       context: context,
-      // 设置弹层透明背景
-      backgroundColor: Color.fromRGBO(0, 0, 0, 0),
+      // 设置透明背景
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           padding: EdgeInsets.all(Gpadding.m),

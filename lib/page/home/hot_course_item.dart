@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import '../../router/application.dart';
 import '../../style/index.dart';
+import '../../model/course_model.dart';
 
 class HotCourseItem extends StatelessWidget {
-  String id;
-  String name;
-  String desc;
-  String image;
+  CourseModel course;
 
-  HotCourseItem(@required this.id, @required this.name, @required this.desc, @required this.image);
+  HotCourseItem(@required this.course);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class HotCourseItem extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Image.asset(
-            image,
+            course.image,
             width: 98,
             height: 98,
             fit: BoxFit.cover,
@@ -37,13 +35,13 @@ class HotCourseItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  name,
+                  course.name,
                   maxLines: 1,
                   style: TextStyle(fontSize: FontSize.l),
                 ),
                 Padding(padding: EdgeInsets.only(top: 5)),
                 Text(
-                  desc,
+                  course.desc,
                   maxLines: 2,
                   style: TextStyle(color: FontColor.grey),
                 ),
@@ -53,7 +51,7 @@ class HotCourseItem extends StatelessWidget {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () { 
-                        Application.router.navigateTo(context, '/courseDetail?id=${id}', transition: TransitionType.fadeIn);
+                        Application.router.navigateTo(context, '/courseDetail?id=${course.id}', transition: TransitionType.fadeIn);
                       },
                       child: Text(
                         '了解更多 >',
