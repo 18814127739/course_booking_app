@@ -11,7 +11,7 @@ class BottomBar extends StatelessWidget {
 
   BottomBar(this.courseId, this.coursePrice, this.courseDailyPrice);
 
-    // 预约
+  // 预约
   void bookCourse(context) {
     Application.router.navigateTo(context, '/', transition: TransitionType.fadeIn);
   }
