@@ -31,7 +31,10 @@ class CommentItem extends StatelessWidget {
                 ),
                 height: 100,
                 width: 100,
-                child: Image.asset(item, fit: BoxFit.cover),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset(item, fit: BoxFit.cover),
+                ),
               )
             ).toList(),
           ),
