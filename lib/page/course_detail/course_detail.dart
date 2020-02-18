@@ -95,11 +95,10 @@ class CourseDetailState extends State<CourseDetail> {
   }
 
   // 透明背景顶部栏
-  Widget transparentBar(double statusBarHeight, BuildContext context) => 
+  Widget transparentBar(BuildContext context) => 
   Opacity(
     opacity: transparentBarOpacity,
     child: Container(
-      margin: EdgeInsets.only(top: statusBarHeight),
       padding: EdgeInsets.symmetric(horizontal: Gpadding.s),
       height: 42,
       child: Row(
@@ -139,11 +138,10 @@ class CourseDetailState extends State<CourseDetail> {
   );
 
   // 白色背景顶部栏
-  Widget whiteBar(double statusBarHeight, BuildContext context) => 
+  Widget whiteBar(BuildContext context) => 
   Opacity(
     opacity: whiteBarOpacity,
     child: Container(
-      margin: EdgeInsets.only(top: statusBarHeight),
       padding: EdgeInsets.symmetric(horizontal: Gpadding.s),
       height: 42,
       color: Colors.white,
@@ -272,93 +270,95 @@ class CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    double statusBarHeight = MediaQuery.of(context).padding.top;
     double deviceWidth = MediaQuery.of(context).size.width;
     List<String> bannerData = detail.images.split(',');
 
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          ListView(
-            // 设置controller后, 当屏幕宽度不足一屏时, 默认不会滚动, 可通过设置physics使list可以滑动
-            physics: AlwaysScrollableScrollPhysics(),
-            controller: scrollController,
-            children: <Widget>[
-              MyBanner(bannerData),
-              Container(
+      // safeArea包裹使界面在iphoneX的刘海屏幕中正常显示
+      body: SafeArea(
+        child: Stack(
+          children: <Widget>[
+            ListView(
+              // 设置controller后, 当屏幕宽度不足一屏时, 默认不会滚动, 可通过设置physics使list可以滑动
+              // physics: AlwaysScrollableScrollPhysics(),
+              controller: scrollController,
+              children: <Widget>[
+                MyBanner(bannerData),
+                Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: Gpadding.m),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        detail.name, 
+                        style: TextStyle(color: Colors.black87, fontSize: FontSize.l, fontWeight: FontWeight.bold)
+                      ),
+                      IconButton(
+                        onPressed: toggleLike,
+                        icon: detail.like ? Icon(Icons.favorite, color: FontColor.red) : Icon(Icons.favorite_border, color: FontColor.grey),
+                      )
+                    ],
+                  ),
+                ),
+                renderOrgInfo(),
+                renderComment(),
+              ],
+            ),
+            Builder(
+              builder: (BuildContext context) {
+                return transparentBar(context);
+              },
+            ),
+            Builder(
+              builder: (BuildContext context) {
+                return whiteBar(context);
+              },
+            ),
+            Positioned(
+              bottom: 0,
+              child: Container(
+                width: deviceWidth,
+                padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.s, Gpadding.m, Gpadding.s),
                 color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: Gpadding.m),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      detail.name, 
-                      style: TextStyle(color: Colors.black87, fontSize: FontSize.l, fontWeight: FontWeight.bold)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          '¥${detail.price}',
+                          style: TextStyle(color: FontColor.red, fontSize: FontSize.xxl, fontWeight: FontWeight.bold),
+                        ),
+                        Padding(padding: EdgeInsets.only(right: Gpadding.xs)),
+                        Text(
+                          '日常价: ¥${detail.dailyPrice}',
+                          style: TextStyle(color: Colors.black87, fontSize: FontSize.s),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: toggleLike,
-                      icon: detail.like ? Icon(Icons.favorite, color: FontColor.red) : Icon(Icons.favorite_border, color: FontColor.grey),
-                    )
+                    GestureDetector(
+                      onTap: bookCourse,
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(Gpadding.l, Gpadding.xs, Gpadding.l, Gpadding.xs),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.all(Gradius.base),
+                        ),
+                        child: Text(
+                          '免费预约',
+                          style: TextStyle(color: FontColor.white),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              renderOrgInfo(),
-              renderComment(),
-            ],
-          ),
-          Builder(
-            builder: (BuildContext context) {
-              return transparentBar(statusBarHeight, context);
-            },
-          ),
-          Builder(
-            builder: (BuildContext context) {
-              return whiteBar(statusBarHeight, context);
-            },
-          ),
-          Positioned(
-            bottom: 0,
-            child: Container(
-              width: deviceWidth,
-              padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m, Gpadding.m, Gpadding.xxl),
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        '¥${detail.price}',
-                        style: TextStyle(color: FontColor.red, fontSize: FontSize.xxl, fontWeight: FontWeight.bold),
-                      ),
-                      Padding(padding: EdgeInsets.only(right: Gpadding.xs)),
-                      Text(
-                        '日常价: ¥${detail.dailyPrice}',
-                        style: TextStyle(color: Colors.black87, fontSize: FontSize.s),
-                      ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: bookCourse,
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(Gpadding.l, Gpadding.xs, Gpadding.l, Gpadding.xs),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.all(Gradius.base),
-                      ),
-                      child: Text(
-                        '免费预约',
-                        style: TextStyle(color: FontColor.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
+            )
+          ],
+        ),
+      ), 
     );
   }
 }

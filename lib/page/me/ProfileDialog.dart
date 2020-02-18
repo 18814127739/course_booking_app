@@ -70,7 +70,7 @@ class ProfileDialog extends StatelessWidget {
             height: 40,
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border(bottom: BorderSide(width: 1, color: string2Color('#f3f3f3'))),
+              border: Border(bottom: BorderSide(width: 1, color: FontColor.divider)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

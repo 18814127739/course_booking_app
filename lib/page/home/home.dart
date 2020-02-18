@@ -178,57 +178,59 @@ class HomeState extends State<Home> {
     ];
 
     // 设置状态颜色
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                height: 220,
-                padding: EdgeInsets.only(top: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(37, 177, 135, 0.6),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40.0),
-                      bottomRight: Radius.circular(40.0)),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/avatar.jpeg'),
-                          radius: 30,
-                        ),
-                        Padding(padding: EdgeInsets.only(left: Gpadding.m)),
-                        Text(
-                          'Hi Pikachu',
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: FontSize.xl,
-                            color: FontColor.white,
-                            fontWeight: FontWeight.bold,
+      // 没有appbar时, 使用safeArea包裹使界面在iphoneX的刘海屏幕中正常显示
+      body: SafeArea(
+        child: ListView(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                  height: 220,
+                  padding: EdgeInsets.only(top: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(37, 177, 135, 0.6),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(40.0),
+                        bottomRight: Radius.circular(40.0)),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          CircleAvatar(
+                            backgroundImage:
+                                AssetImage('assets/images/avatar.jpeg'),
+                            radius: 30,
                           ),
-                        ),
-                      ],
-                    ),
-                    Flexible(child: Container()),
-                  ],
+                          Padding(padding: EdgeInsets.only(left: Gpadding.m)),
+                          Text(
+                            'Hi Pikachu',
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: FontSize.xl,
+                              color: FontColor.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Flexible(child: Container()),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80, Gpadding.m, Gpadding.m),
-                child: MyBanner(bannerData),
-              ),
-            ],
-          ),
-          renderMenuList(),
-          renderHotCourses(context),
-        ],
-      ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80, Gpadding.m, Gpadding.m),
+                  child: MyBanner(bannerData),
+                ),
+              ],
+            ),
+            renderMenuList(),
+            renderHotCourses(context),
+          ],
+        ),
+      ), 
     );
   }
 }
