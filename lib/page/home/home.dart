@@ -24,10 +24,27 @@ const List menuData = [
 
 class HomeState extends State<Home> {
   List<CourseModel> courseList;
+  ScrollController controller = ScrollController();
+  double barOpacity = 0.0;
+
+  final double TOPBAR_HEIGHT = Gpadding.m + Gsize.statusBarHeight + 60;
 
   @override
   void initState() {
     print('home in');
+    double opacity;
+    controller.addListener(() {
+      setState(() {
+        opacity = controller.offset / TOPBAR_HEIGHT;
+        if (opacity > 1) {
+          barOpacity = 1;
+        } else if (opacity < 0) {
+          barOpacity = 0;
+        }  else {
+          barOpacity = opacity;
+        }
+      });
+    });
     List<String> type = ["音乐", "语文", "美术", "数学"];
     courseList = List.generate(4, (index) => CourseModel.fromJson({
       "id": "$index",
@@ -151,67 +168,97 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     List<String> bannerData = [
       'assets/images/banners/5.png',
-    'assets/images/banners/1.jpeg',
-    'assets/images/banners/2.jpeg',
-    'assets/images/banners/3.jpeg',
-    'assets/images/banners/4.jpeg',
+      'assets/images/banners/1.jpeg',
+      'assets/images/banners/2.jpeg',
+      'assets/images/banners/3.jpeg',
+      'assets/images/banners/4.jpeg',
     ];
     // 设置状态颜色
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     return Scaffold(
-      // 使用SingleChildScrollView能够覆盖刘海区域,  ListView则不行
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
+      // 使用SingleChildScrollView能够覆盖刘海区域,  ListView默认不会,可通过设置padding为0实现
+      body: Stack(
+        children: <Widget>[
+          SingleChildScrollView(
+            controller: controller,
+            child: Column(
               children: <Widget>[
-                Container(
-                  height: 220 + Gsize.statusBarHeight,
-                  padding: EdgeInsets.only(top: Gpadding.l + Gsize.statusBarHeight, left: Gpadding.m, right: Gpadding.m),
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(37, 177, 135, 0.6),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40.0),
-                        bottomRight: Radius.circular(40.0)),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                Stack(
+                  children: <Widget>[
+                    Container(
+                      height: 220 + Gsize.statusBarHeight,
+                      padding: EdgeInsets.only(top: Gpadding.m + Gsize.statusBarHeight, left: Gpadding.m, right: Gpadding.m),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(37, 177, 135, 0.6),
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(40.0),
+                            bottomRight: Radius.circular(40.0)),
+                      ),
+                      child: Column(
                         children: <Widget>[
-                          CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/images/avatar.jpeg'),
-                            radius: 30,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              CircleAvatar(
+                                backgroundImage: AssetImage('assets/images/avatar.jpeg'),
+                                radius: 30,
+                              ),
+                              Padding(padding: EdgeInsets.only(left: Gpadding.m)),
+                              Text(
+                                'Hi Pikachu',
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: FontSize.xl,
+                                  color: FontColor.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                          Padding(padding: EdgeInsets.only(left: Gpadding.m)),
-                          Text(
-                            'Hi Pikachu',
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontSize: FontSize.xl,
-                              color: FontColor.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          Flexible(child: Container()),
                         ],
                       ),
-                      Flexible(child: Container()),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80 + Gsize.statusBarHeight, Gpadding.m, Gpadding.m),
+                      child: MyBanner(bannerData),
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80 + Gsize.statusBarHeight, Gpadding.m, Gpadding.m),
-                  child: MyBanner(bannerData),
-                ),
+                renderMenuList(),
+                renderHotCourses(context),
               ],
             ),
-            renderMenuList(),
-            renderHotCourses(context),
-          ],
-        ),
-      ),
+          ),
+          Opacity(
+            opacity: barOpacity,
+            child: Container(
+              color: Color.fromRGBO(37, 177, 135, 1),
+              padding: EdgeInsets.fromLTRB(Gpadding.m, Gsize.statusBarHeight, Gpadding.m, Gpadding.s),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/avatar.jpeg'),
+                    radius: 20,
+                  ),
+                  Padding(padding: EdgeInsets.only(left: Gpadding.m)),
+                  Text(
+                    'Hi Pikachu',
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: FontSize.l,
+                      color: FontColor.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ), 
     );
   }
 }

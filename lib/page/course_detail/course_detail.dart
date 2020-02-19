@@ -23,20 +23,20 @@ class CourseDetailState extends State<CourseDetail> {
   ScrollController scrollController = ScrollController();
   CourseDetailModel detail;
   List<CommentModel> comments;
+  final double TOPBAR_HEIGHT = Gsize.statusBarHeight + Gpadding.xs + 30;
 
   @override
   void initState() {
+    double opacity;
     scrollController.addListener(() {
-      // 将滑动距离简化成整数
-      int offset = int.parse(scrollController.offset.toStringAsFixed(0));
-      // 根据滑动距离切换导航栏透明度
+      opacity = scrollController.offset / TOPBAR_HEIGHT;
       setState(() {
-        if(offset < 100 && offset > 0) {
-          whiteBarOpacity = offset * 0.01;
-        } else if(offset >= 100) {
+        if(opacity > 1) {
           whiteBarOpacity = 1;
-        } else {
+        } else if(opacity < 0) {
           whiteBarOpacity = 0;
+        } else {
+          whiteBarOpacity = opacity;
         }
       });
     });
