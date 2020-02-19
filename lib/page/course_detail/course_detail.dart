@@ -19,7 +19,6 @@ class CourseDetail extends StatefulWidget {
 }
 
 class CourseDetailState extends State<CourseDetail> {
-  double transparentBarOpacity = 1; // 透明顶部透明度
   double whiteBarOpacity = 0; // 白色顶部透明度
   ScrollController scrollController = ScrollController();
   CourseDetailModel detail;
@@ -34,7 +33,10 @@ class CourseDetailState extends State<CourseDetail> {
       setState(() {
         if(offset < 100 && offset > 0) {
           whiteBarOpacity = offset * 0.01;
-          transparentBarOpacity = 1 - whiteBarOpacity;
+        } else if(offset >= 100) {
+          whiteBarOpacity = 1;
+        } else {
+          whiteBarOpacity = 0;
         }
       });
     });
@@ -156,7 +158,7 @@ class CourseDetailState extends State<CourseDetail> {
                         ),
                       ],
                     ) ,
-                  )
+                  ),
                 ],
               ),
               Padding(padding: EdgeInsets.only(top: Gpadding.l)),
@@ -182,17 +184,12 @@ class CourseDetailState extends State<CourseDetail> {
 
   // 透明背景顶部栏
   Widget transparentBar(BuildContext context) => 
-  Opacity(
-    opacity: transparentBarOpacity,
-    child: Container(
-      padding: EdgeInsets.symmetric(horizontal: Gpadding.s),
-      height: 42,
+    Container(
+      padding: EdgeInsets.fromLTRB(Gpadding.s, Gsize.statusBarHeight + Gpadding.xs, Gpadding.s, Gpadding.s),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          GestureDetector(
-            onTap: goBack,
-            child: Container(
+          Container(
               height: 30,
               width: 30,
               decoration: BoxDecoration(
@@ -203,40 +200,35 @@ class CourseDetailState extends State<CourseDetail> {
                 child: Icon(Icons.chevron_left, color: Colors.white, size: 30),
               ),
             ),
-          ),
-          GestureDetector(
-            onTap: () { share(context); },
-            child:Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: string2Color('#BFBFBF'),
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-              ),
-              child: Center(
-                child: Icon(Icons.vertical_align_top, color: Colors.white, size: 20),
-              ),
+          Container(
+            height: 30,
+            width: 30,
+            decoration: BoxDecoration(
+              color: string2Color('#BFBFBF'),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
-          )
+            child: Center(
+              child: Icon(Icons.vertical_align_top, color: Colors.white, size: 20),
+            ),
+          ),
         ],
       ),
-    ),
-  );
+    );
 
   // 白色背景顶部栏
   Widget whiteBar(BuildContext context) => 
   Opacity(
     opacity: whiteBarOpacity,
     child: Container(
-      padding: EdgeInsets.symmetric(horizontal: Gpadding.s),
-      height: 42,
+      padding: EdgeInsets.fromLTRB(Gpadding.s, Gsize.statusBarHeight + Gpadding.xs, Gpadding.s, Gpadding.s),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           GestureDetector(
             onTap: goBack,
-            child: SizedBox(
+            child: 
+            SizedBox(
               height: 30,
               width: 30,
               child: Center(
@@ -370,35 +362,40 @@ class CourseDetailState extends State<CourseDetail> {
 
     return Scaffold(
       // safeArea包裹使界面在iphoneX的刘海屏幕中正常显示
-      body: SafeArea(
+      body: Container(
+        width: Gsize.deviceWidth,
+        height: Gsize.deviceHeight,
+        padding: EdgeInsets.only(bottom: Gsize.bottomHeight),
         child: Stack(
           children: <Widget>[
-            ListView(
+            SingleChildScrollView(
               // 设置controller后, 当屏幕宽度不足一屏时, 默认不会滚动, 可通过设置physics使list可以滑动
               // physics: AlwaysScrollableScrollPhysics(),
               controller: scrollController,
-              children: <Widget>[
-                MyBanner(bannerData),
-                Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: Gpadding.m),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        detail.name, 
-                        style: TextStyle(color: Colors.black87, fontSize: FontSize.l, fontWeight: FontWeight.bold)
-                      ),
-                      IconButton(
-                        onPressed: toggleLike,
-                        icon: detail.like ? Icon(Icons.favorite, color: FontColor.red) : Icon(Icons.favorite_border, color: FontColor.grey),
-                      )
-                    ],
+              child: Column(
+                children: <Widget>[
+                  MyBanner(bannerData),
+                  Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: Gpadding.m),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          detail.name, 
+                          style: TextStyle(color: Colors.black87, fontSize: FontSize.l, fontWeight: FontWeight.bold)
+                        ),
+                        IconButton(
+                          onPressed: toggleLike,
+                          icon: detail.like ? Icon(Icons.favorite, color: FontColor.red) : Icon(Icons.favorite_border, color: FontColor.grey),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                renderOrgInfo(),
-                renderComment(),
-              ],
+                  renderOrgInfo(),
+                  renderComment(),
+                ],
+              ),
             ),
             Builder(
               builder: (BuildContext context) {

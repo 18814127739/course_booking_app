@@ -157,7 +157,7 @@ class HomeState extends State<Home> {
     'assets/images/banners/4.jpeg',
     ];
     // 设置状态颜色
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     return Scaffold(
       // 使用SingleChildScrollView能够覆盖刘海区域,  ListView则不行
@@ -211,7 +211,7 @@ class HomeState extends State<Home> {
             renderHotCourses(context),
           ],
         ),
-      ) 
+      ),
     );
   }
 }

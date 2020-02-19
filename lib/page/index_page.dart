@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:course_booking_app/provider/current_index_provider.dart';
 import 'home/home.dart';
 import 'course_list/course_list.dart';
-import 'message/message.dart';
 import 'me/me.dart';
 
 class IndexPage extends StatefulWidget {
@@ -21,10 +20,6 @@ const List tabs = [
     'icon': Icon(Icons.bookmark),
   },
   {
-    'title': '消息',
-    'icon': Icon(Icons.chat),
-  },
-  {
     'title': '我的',
     'icon': Icon(Icons.account_circle),
   },
@@ -33,7 +28,6 @@ const List tabs = [
 class IndexPageState extends State<IndexPage> {
   Home home; // 首页
   CourseList courseList; // 课程页
-  Message message; // 消息页
   Me me; // 我的页
 
   currentPage() {
@@ -50,11 +44,6 @@ class IndexPageState extends State<IndexPage> {
         }
         return courseList;
       case 2:
-        if(message == null) {
-          message = Message();
-        }
-        return message;
-      case 3:
         if(me == null) {
           me = Me();
         }

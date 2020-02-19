@@ -8,7 +8,9 @@ class Gsize {
   // 屏幕宽度
   static double deviceWidth = MediaQueryData.fromWindow(window).size.width;
   // 屏幕高度
-  static double windowHeight = MediaQueryData.fromWindow(window).size.height;
+  static double deviceHeight = MediaQueryData.fromWindow(window).size.height;
+  // iphoneX大屏底部高度
+  static double bottomHeight = MediaQueryData.fromWindow(window).padding.bottom;
 }
 
 class FontSize {
