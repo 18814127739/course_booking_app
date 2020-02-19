@@ -100,7 +100,7 @@ class HomeState extends State<Home> {
       padding: EdgeInsets.all(Gpadding.m),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Gradius.s),
         boxShadow: [
           Gshadow.black(0, 1, .05, 1, 0)
         ],
@@ -117,7 +117,7 @@ class HomeState extends State<Home> {
                     color: Colors.blue,
                     width: 6,
                     height: 20,
-                    margin: EdgeInsets.only(right: 10),
+                    margin: EdgeInsets.only(right: Gpadding.s),
                   ),
                   Text(
                     '热门课程',
@@ -126,7 +126,7 @@ class HomeState extends State<Home> {
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(right: 10),
+                padding: EdgeInsets.only(right: Gpadding.s),
                 child: GestureDetector(
                   onTap: () {
                     // 切换至课程列表tab
@@ -141,7 +141,7 @@ class HomeState extends State<Home> {
             ],
           ),
           // 热门课程列表
-          ... courseList.map((CourseModel item) => HotCourseItem(item)).toList(),
+          ...courseList.map((CourseModel item) => HotCourseItem(item)).toList(),
         ],
       ),
     );
@@ -160,15 +160,15 @@ class HomeState extends State<Home> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     return Scaffold(
-      // 没有appbar时, 使用safeArea包裹使界面在iphoneX的刘海屏幕中正常显示
-      body: SafeArea(
-        child: ListView(
+      // 使用SingleChildScrollView能够覆盖刘海区域,  ListView则不行
+      body: SingleChildScrollView(
+        child: Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
                 Container(
-                  height: 220,
-                  padding: EdgeInsets.only(top: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
+                  height: 220 + Gsize.statusBarHeight,
+                  padding: EdgeInsets.only(top: Gpadding.l + Gsize.statusBarHeight, left: Gpadding.m, right: Gpadding.m),
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(37, 177, 135, 0.6),
                     borderRadius: BorderRadius.only(
@@ -202,7 +202,7 @@ class HomeState extends State<Home> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80, Gpadding.m, Gpadding.m),
+                  padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m + 80 + Gsize.statusBarHeight, Gpadding.m, Gpadding.m),
                   child: MyBanner(bannerData),
                 ),
               ],
@@ -211,7 +211,7 @@ class HomeState extends State<Home> {
             renderHotCourses(context),
           ],
         ),
-      ), 
+      ) 
     );
   }
 }

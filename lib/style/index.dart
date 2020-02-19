@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import '../utils/utils.dart';
+
+class Gsize {
+  // 状态栏高度
+  static double statusBarHeight = MediaQueryData.fromWindow(window).padding.top;
+  // 屏幕宽度
+  static double deviceWidth = MediaQueryData.fromWindow(window).size.width;
+  // 屏幕高度
+  static double windowHeight = MediaQueryData.fromWindow(window).size.height;
+}
 
 class FontSize {
   static const double s = 12;
-
   static const double m = 14;
-   
   static const double l = 16;
-
   static const double xl = 18;
-
   static const double xxl = 20;
 }
 

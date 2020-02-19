@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/services.dart';
 import '../../router/application.dart';
 import '../../style/index.dart';
 import '../../utils/utils.dart';
@@ -55,28 +56,6 @@ class MeState extends State<Me> {
       },
     );
   }
-
-  AppBar renderAppBar() => AppBar(
-    elevation: 0,
-    automaticallyImplyLeading: false,
-    backgroundColor: BgColor.grey,
-    flexibleSpace: Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color.fromRGBO(45, 118, 202, 0.8), Color.fromRGBO(72, 131, 202, 0.8)],
-        )
-      ),
-    ),
-    actions: <Widget>[
-      Container(
-        margin: EdgeInsets.only(right: Gpadding.xs),
-        child: IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () {},
-        ),
-      )
-    ],
-  );
 
   // 等级区域
   Widget renderLevel() {
@@ -205,109 +184,127 @@ class MeState extends State<Me> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: renderAppBar(),
-      body: ListView(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                height: 200,
-                padding: EdgeInsets.only(top: Gpadding.s, left: Gpadding.m, right: Gpadding.m),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color.fromRGBO(45, 118, 202, 0.8), Color.fromRGBO(72, 131, 202, 0.8)],
-                  )
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/avatar.jpeg'),
-                          radius: 32,
-                        ),
-                        Padding(padding: EdgeInsets.only(right: Gpadding.s)),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    '唐东东',
-                                    style: TextStyle(fontSize: 22, color: FontColor.white, fontWeight: FontWeight.bold),
-                                  ),
-                                  GestureDetector(
-                                    behavior: HitTestBehavior.opaque,
-                                    onTap: () { showProfile(context); },
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('我的资料卡', style: TextStyle(color: FontColor.white)),
-                                        Icon(Icons.chevron_right, color: Colors.white, size: 18),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 2)),
-                              Container(
-                                padding: EdgeInsets.only(left: 2),
-                                width: 64,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  color: string2Color('#FF9F22'),
-                                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                                ),
-                                child: Row(
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(Gpadding.m, Gsize.statusBarHeight, Gpadding.m, 0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color.fromRGBO(45, 118, 202, 0.8), Color.fromRGBO(72, 131, 202, 0.8)],
+                )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.settings, color: Colors.white,),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            Stack(
+              children: <Widget>[
+                Container(
+                  height: 200,
+                  padding: EdgeInsets.only(top: Gpadding.s, left: Gpadding.m, right: Gpadding.m),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color.fromRGBO(45, 118, 202, 0.8), Color.fromRGBO(72, 131, 202, 0.8)],
+                    )
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          CircleAvatar(
+                            backgroundImage: AssetImage('assets/images/avatar.jpeg'),
+                            radius: 32,
+                          ),
+                          Padding(padding: EdgeInsets.only(right: Gpadding.s)),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Image.asset('assets/icons/me/medal.png', width: 20, height: 20),
                                     Text(
-                                      '0勋章',
-                                      style: TextStyle(fontSize: FontSize.s, color: FontColor.white),
+                                      '唐东东',
+                                      style: TextStyle(fontSize: 22, color: FontColor.white, fontWeight: FontWeight.bold),
+                                    ),
+                                    GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () { showProfile(context); },
+                                      child: Row(
+                                        children: <Widget>[
+                                          Text('我的资料卡', style: TextStyle(color: FontColor.white)),
+                                          Icon(Icons.chevron_right, color: Colors.white, size: 18),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Padding(padding: EdgeInsets.only(top: 2)),
+                                Container(
+                                  padding: EdgeInsets.only(left: 2),
+                                  width: 64,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    color: string2Color('#FF9F22'),
+                                    borderRadius: BorderRadius.all(Radius.circular(3)),
+                                  ),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Image.asset('assets/icons/me/medal.png', width: 20, height: 20),
+                                      Text(
+                                        '0勋章',
+                                        style: TextStyle(fontSize: FontSize.s, color: FontColor.white),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Expanded(child: Container()),
-                  ],
-                ),
-              ),
-              Positioned(
-                right: 15,
-                top: 40,
-                child: Container(
-                  height: 110,
-                  width: 110,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(55)),
-                    border: Border.all(width: 20, color: Color.fromRGBO(246, 246, 246, .17)),
+                        ],
+                      ),
+                      Expanded(child: Container()),
+                    ],
                   ),
                 ),
+                Positioned(
+                  right: 15,
+                  top: 40,
+                  child: Container(
+                    height: 110,
+                    width: 110,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(55)),
+                      border: Border.all(width: 20, color: Color.fromRGBO(246, 246, 246, .17)),
+                    ),
+                  ),
+                ),
+                renderLevel(),
+                renderLearnRecord(),
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m, Gpadding.m, Gpadding.l),
+              padding: EdgeInsets.all(Gpadding.m),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Gradius.s),
+                boxShadow: [Gshadow.black(0, 1, .05, 1, 0)]
               ),
-              renderLevel(),
-              renderLearnRecord(),
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.m, Gpadding.m, Gpadding.l),
-            padding: EdgeInsets.all(Gpadding.m),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Gradius.s),
-              boxShadow: [Gshadow.black(0, 1, .05, 1, 0)]
+              child: Column(
+                children: renderMenus(),
+              ),
             ),
-            child: Column(
-              children: renderMenus(),
-            ),
-          ),
-        ],
-      ) 
+          ],
+        ),
+      ),
     );
   }
 }
