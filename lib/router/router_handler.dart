@@ -1,3 +1,4 @@
+import 'package:course_booking_app/page/large_image/large_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
 import '../page/index_page.dart';
@@ -5,7 +6,7 @@ import '../page/my_course/my_course.dart';
 import '../page/my_course_detail/my_course_detail.dart';
 import '../page/course_detail/course_detail.dart';
 import '../page/comment_list/comment_list.dart';
-import '../page/big_image/big_image.dart';
+import '../page/large_image/large_image.dart';
 
 Handler rootHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -41,8 +42,7 @@ Handler commentListHandler = Handler(
 
 Handler bigImageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    print(params["img"]);
     int index = int.parse(params["index"].first);
-    return BigImage(params["img"], index);
+    return LargeImage(index);
   }
 );

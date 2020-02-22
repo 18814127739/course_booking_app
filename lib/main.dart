@@ -5,6 +5,7 @@ import 'router/application.dart';
 import 'router/routes.dart';
 import 'loading.dart';
 import 'provider/current_index_provider.dart';
+import 'provider/large_image_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(builder: (_) => CurrentIndexProvider()),
+        ChangeNotifierProvider(builder: (_) => LargeImageProvider()),
       ],
       child: MaterialApp(
         title: '课程预约app',

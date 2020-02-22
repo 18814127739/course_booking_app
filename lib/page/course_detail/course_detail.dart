@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-import '../../router/application.dart';
-import '../../model/comment_model.dart';
-import '../../model/course_detail_model.dart';
-import '../../style/index.dart';
-import '../../utils/utils.dart';
+import 'package:course_booking_app/router/application.dart';
+import 'package:course_booking_app/model/comment_model.dart';
+import 'package:course_booking_app/model/course_detail_model.dart';
+import 'package:course_booking_app/style/index.dart';
 import '../common_widget/banner.dart';
 import '../common_widget/bottom_bar.dart';
 import '../common_widget/comment_item.dart';
@@ -75,14 +74,12 @@ class CourseDetailState extends State<CourseDetail> {
   }
 
   void goBack() {
-    print(123);
     Navigator.pop(context);
   }
 
-  void share(BuildContext context) {
-    Scaffold.of(context).showSnackBar(
-      SnackBar(content: Text('功能尚未开发'), duration: Duration(seconds: 2))
-    );
+  // 回到顶部
+  void scrollTop(BuildContext context) {
+    scrollController.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   // 切换收藏
@@ -193,7 +190,7 @@ class CourseDetailState extends State<CourseDetail> {
               height: 30,
               width: 30,
               decoration: BoxDecoration(
-                color: string2Color('#BFBFBF'),
+                color: Color.fromRGBO(0, 0, 0, .4),
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
               child: Center(
@@ -204,7 +201,7 @@ class CourseDetailState extends State<CourseDetail> {
             height: 30,
             width: 30,
             decoration: BoxDecoration(
-              color: string2Color('#BFBFBF'),
+              color: Color.fromRGBO(0, 0, 0, .4),
               borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: Center(
@@ -237,7 +234,7 @@ class CourseDetailState extends State<CourseDetail> {
             ),
           ),
           GestureDetector(
-            onTap: () { share(context); },
+            onTap: () { scrollTop(context); },
             child: SizedBox(
               height: 30,
               width: 30,
@@ -407,7 +404,11 @@ class CourseDetailState extends State<CourseDetail> {
                 return whiteBar(context);
               },
             ),
-            BottomBar(detail.id, detail.price, detail.dailyPrice),
+            BottomBar(
+              courseId: detail.id, 
+              coursePrice: detail.price, 
+              courseDailyPrice: detail.dailyPrice,
+            ),
           ],
         ),
       ),

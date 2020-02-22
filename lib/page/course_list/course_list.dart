@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'course_item.dart';
-import '../../utils/utils.dart';
-import '../../style/index.dart';
-import '../../model/course_model.dart';
+import 'package:course_booking_app/utils/utils.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/model/course_model.dart';
 
 class CourseList extends StatefulWidget {
   @override
@@ -19,7 +19,6 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
 
   @override
   void initState() {
-    print('courseList in');
     List<CourseModel> courseList = List.generate(5, (int index) => CourseModel.fromJson({
       "id": "$index", 
       "name": "寒假全期小/初/高数学辅导班", 
@@ -48,7 +47,6 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
 
   @override
   void dispose() {
-    print('courseList out');
     tabController.dispose();
     super.dispose();
   }

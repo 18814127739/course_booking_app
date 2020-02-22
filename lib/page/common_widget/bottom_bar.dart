@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-import '../../router/application.dart';
-import '../../style/index.dart';
+import 'package:course_booking_app/router/application.dart';
+import 'package:course_booking_app/style/index.dart';
 
 class BottomBar extends StatelessWidget {
   String courseId;
   double coursePrice;
   double courseDailyPrice;
 
-  BottomBar(this.courseId, this.coursePrice, this.courseDailyPrice);
+  BottomBar({this.courseId, this.coursePrice, this.courseDailyPrice});
 
   // 预约
   void bookCourse(context) {

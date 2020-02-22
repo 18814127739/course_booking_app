@@ -1,6 +1,10 @@
 import 'package:course_booking_app/model/comment_model.dart';
+import 'package:course_booking_app/router/application.dart';
 import 'package:flutter/material.dart';
-import '../../style/index.dart';
+import 'package:fluro/fluro.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:provider/provider.dart';
+import 'package:course_booking_app/provider/large_image_provider.dart';
 
 class CommentItem extends StatelessWidget {
   CommentModel comment;
@@ -8,10 +12,16 @@ class CommentItem extends StatelessWidget {
 
   CommentItem(@required this.comment, this.isShowImgs);
 
+  void clickImage(BuildContext context, int index) {
+    List<String> imgs = comment.images.split(",");
+    Provider.of<LargeImageProvider>(context).changeImages(imgs);
+    Application.router.navigateTo(context, '/largeImage?index=$index', transition: TransitionType.fadeIn);
+  }
+
   @override
   Widget build(BuildContext context) {
     List<String> imgs = [];
-    if(comment.images != null) {
+    if(comment.images != null && comment.images != "") {
       imgs = comment.images.split(",");
     }
     bool isShow = this.isShowImgs && imgs.length > 0;
@@ -69,23 +79,27 @@ class CommentItem extends StatelessWidget {
         if(isShow) Padding(padding: EdgeInsets.only(top: Gpadding.m)),
         if(isShow) SizedBox(
           height: 100,
-          child: ListView(
+          child: ListView.builder(
             // 横向滚动, 外层元素必须设置高度
             scrollDirection: Axis.horizontal,
-            children: imgs.map((item) => 
-              Container(
-                margin: EdgeInsets.only(right: Gpadding.s),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Gradius.xs),
+            itemCount: imgs.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () { clickImage(context, index); },
+                child: Container(
+                  margin: EdgeInsets.only(right: Gpadding.s),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Gradius.xs),
+                  ),
+                  height: 100,
+                  width: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Image.asset(imgs[index], fit: BoxFit.cover),
+                  ),
                 ),
-                height: 100,
-                width: 100,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.asset(item, fit: BoxFit.cover),
-                ),
-              )
-            ).toList(),
+              );
+            },
           ),
         ),
       ],

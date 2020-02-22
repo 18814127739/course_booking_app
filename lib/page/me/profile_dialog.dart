@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../style/index.dart';
-import '../../utils/utils.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/utils/utils.dart';
 
 class ProfileDialog extends StatelessWidget {
   
@@ -26,7 +26,6 @@ class ProfileDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return  AlertDialog(
       contentPadding: EdgeInsets.all(0),
-      // 让弹层背景透明
       backgroundColor: Colors.transparent, 
       content: Stack(
         children: <Widget>[

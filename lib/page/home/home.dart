@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'hot_course_item.dart';
 import '../common_widget/banner.dart';
-import '../../provider/current_index_provider.dart';
-import '../../utils/utils.dart';
-import '../../style/index.dart';
-import '../../model/course_model.dart';
+import 'package:course_booking_app/provider/current_index_provider.dart';
+import 'package:course_booking_app/utils/utils.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/model/course_model.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -31,7 +31,6 @@ class HomeState extends State<Home> {
 
   @override
   void initState() {
-    print('home in');
     double opacity;
     controller.addListener(() {
       setState(() {
@@ -57,7 +56,7 @@ class HomeState extends State<Home> {
 
   @override
   void dispose() {
-    print('home out');
+    controller.dispose();
     super.dispose();
   }
 
@@ -77,7 +76,6 @@ class HomeState extends State<Home> {
           width: itemWidth,
           margin: EdgeInsets.only(left: Gpadding.s, right: Gpadding.s, bottom: Gpadding.l),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
                 width: itemWidth,
@@ -126,7 +124,6 @@ class HomeState extends State<Home> {
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Row(
                 children: <Widget>[
@@ -198,7 +195,6 @@ class HomeState extends State<Home> {
                       child: Column(
                         children: <Widget>[
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               CircleAvatar(
                                 backgroundImage: AssetImage('assets/images/avatar.jpeg'),
@@ -237,7 +233,6 @@ class HomeState extends State<Home> {
               color: Color.fromRGBO(37, 177, 135, 1),
               padding: EdgeInsets.fromLTRB(Gpadding.m, Gsize.statusBarHeight, Gpadding.m, Gpadding.s),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
                     backgroundImage: AssetImage('assets/images/avatar.jpeg'),

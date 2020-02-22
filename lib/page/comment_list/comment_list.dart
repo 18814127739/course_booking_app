@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluro/fluro.dart';
-import '../../model/comment_model.dart';
-import '../../router/application.dart';
-import '../../style/index.dart';
+import 'package:course_booking_app/model/comment_model.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/page/common_widget/base_layout.dart';
 import '../common_widget/bottom_bar.dart';
 import '../common_widget/comment_item.dart';
 
@@ -37,44 +36,30 @@ class CommentListState extends State<CommentList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.light,
-        title: Text(
-          '课程评价', 
-          style: TextStyle(fontSize: FontSize.xxl, color: FontColor.appBar, fontWeight: FontWeight.bold)
-        ),
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () { Navigator.pop(context); },
-          icon: Icon(Icons.chevron_left, size: 32),
-          color: FontColor.appBar,
+    return BaseLayout(
+      title: '课程评价',
+      child: Container(
+        padding: EdgeInsets.fromLTRB(Gpadding.m, 0, Gpadding.m, Gpadding.xxl * 2),
+        color: Colors.white,
+        child: ListView.builder(
+          controller: controller,
+          itemCount: commentList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              padding: EdgeInsets.symmetric(vertical: Gpadding.m),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(bottom: BorderSide(width: 1, color: FontColor.wDivider)),
+              ),
+              child: CommentItem(commentList[index], true),
+            );
+          }
         ),
       ),
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(Gpadding.m, 0, Gpadding.m, Gpadding.xxl * 2),
-              color: Colors.white,
-              child: ListView.builder(
-                controller: controller,
-                itemCount: commentList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(vertical: Gpadding.m),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border(bottom: BorderSide(width: 1, color: FontColor.wDivider)),
-                    ),
-                    child: CommentItem(commentList[index], true),
-                  );
-                }
-              ),
-            ),
-            BottomBar(widget.courseId, widget.coursePrice, widget.courseDailyPrice),
-          ],
-        ),
+      bottomBar: BottomBar(
+        courseId: widget.courseId, 
+        coursePrice: widget.coursePrice, 
+        courseDailyPrice: widget.courseDailyPrice,
       ),
     );
   }

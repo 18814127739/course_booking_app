@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-import '../../router/application.dart';
-import '../../style/index.dart';
-import '../../model/course_model.dart';
+import 'package:course_booking_app/router/application.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/model/course_model.dart';
 
 class CourseItem extends StatelessWidget {
   CourseModel course;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluro/fluro.dart';
-import '../../router/application.dart';
-import '../../utils/utils.dart';
-import '../../style/index.dart';
-import '../../model/my_course_detail_model.dart';
+import 'package:course_booking_app/page/common_widget/base_layout.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/model/my_course_detail_model.dart';
 
 class MyCourseDetail extends StatefulWidget {
   String id;
@@ -41,21 +40,9 @@ class MyCourseDetailState extends State<MyCourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.light,
-        title: Text(
-          '课程内容', 
-          style: TextStyle(fontSize: FontSize.xxl, color: FontColor.appBar, fontWeight: FontWeight.bold)
-        ),
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () { Navigator.pop(context); },
-          icon: Icon(Icons.chevron_left, size: 32),
-          color: FontColor.appBar,
-        ),
-      ),
-      body: Container(
+    return BaseLayout(
+      title: '课程内容',
+      child: Container(
         color: Colors.white,
         padding: EdgeInsets.only(top: Gpadding.l, left: Gpadding.m, right: Gpadding.m),
         child: Column(
@@ -66,7 +53,7 @@ class MyCourseDetailState extends State<MyCourseDetail> {
             renderCoursePlan(),
           ],
         ),
-      ), 
+      ),
     );
   }
 

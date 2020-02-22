@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluro/fluro.dart';
-import '../../style/index.dart';
-import '../../router/application.dart';
+import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/router/application.dart';
+import 'package:course_booking_app/page/common_widget/base_layout.dart';
 import 'my_course_item.dart';
 
 class MyCourse extends StatefulWidget {
@@ -39,21 +40,9 @@ class MyCourseState extends State<MyCourse> {
       )
     ).toList();
 
-    return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.light,
-        title: Text(
-          '我的课程', 
-          style: TextStyle(fontSize: FontSize.xxl, color: FontColor.appBar, fontWeight: FontWeight.bold)
-        ),
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () { Navigator.pop(context); },
-          icon: Icon(Icons.chevron_left, size: 32),
-          color: FontColor.appBar,
-        ),
-      ),
-      body: Container(
+    return BaseLayout(
+      title: '我的课程',
+      child: Container(
         padding: EdgeInsets.only(top: Gpadding.l),
         color: Colors.white,
         child: ListView(

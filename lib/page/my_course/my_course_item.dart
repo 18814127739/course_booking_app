@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../utils/utils.dart';
-import '../../style/index.dart';
+import 'package:course_booking_app/utils/utils.dart';
+import 'package:course_booking_app/style/index.dart';
 
 class MyCourseItem extends StatelessWidget {
   String id;
