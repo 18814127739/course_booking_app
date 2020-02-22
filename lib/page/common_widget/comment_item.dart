@@ -15,7 +15,7 @@ class CommentItem extends StatelessWidget {
   void clickImage(BuildContext context, int index) {
     List<String> imgs = comment.images.split(",");
     Provider.of<LargeImageProvider>(context).changeImages(imgs);
-    Application.router.navigateTo(context, '/largeImage?index=$index', transition: TransitionType.fadeIn);
+    Application.router.navigateTo(context, '/largeImage?index=$index&id=${comment.id}');
   }
 
   @override
@@ -84,18 +84,21 @@ class CommentItem extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: imgs.length,
             itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () { clickImage(context, index); },
-                child: Container(
-                  margin: EdgeInsets.only(right: Gpadding.s),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Gradius.xs),
-                  ),
-                  height: 100,
-                  width: 100,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image.asset(imgs[index], fit: BoxFit.cover),
+              return Hero(
+                tag: '${comment.id}-$index',
+                child: GestureDetector(
+                  onTap: () { clickImage(context, index); },
+                  child: Container(
+                    margin: EdgeInsets.only(right: Gpadding.s),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Gradius.xs),
+                    ),
+                    height: 100,
+                    width: 100,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: Image.asset(imgs[index], fit: BoxFit.cover),
+                    ),
                   ),
                 ),
               );

@@ -43,6 +43,7 @@ Handler commentListHandler = Handler(
 Handler bigImageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     int index = int.parse(params["index"].first);
-    return LargeImage(index);
+    String id = params["id"].first;
+    return LargeImage(index, id);
   }
 );

@@ -6,7 +6,8 @@ import 'package:course_booking_app/style/index.dart';
 
 class LargeImage extends StatefulWidget {
   int index;
-  LargeImage(this.index);
+  String id;
+  LargeImage(this.index, this.id);
 
   @override
   LargeImageState createState() => LargeImageState();
@@ -34,23 +35,26 @@ class LargeImageState extends State<LargeImage> {
         color: Colors.black,
         child: InkWell(
           onTap: () { Navigator.pop(context);},
-          child: Center(
-            child: Swiper(
-              itemCount: images.length,
-              index: curIndex,
-              onIndexChanged: (int index) {
-                setState(() {
-                  curIndex = index;
-                });
-              },
-              itemBuilder: (BuildContext contetxt, int index) {
-                return Image.asset(
-                  images[index],
-                  fit: BoxFit.contain,
-                );
-              },
-              loop: false,
-              autoplay: false,
+          child: Hero(
+            tag: '${widget.id}-${curIndex}',
+            child: Center(
+              child: Swiper(
+                itemCount: images.length,
+                index: curIndex,
+                onIndexChanged: (int index) {
+                  setState(() {
+                    curIndex = index;
+                  });
+                },
+                itemBuilder: (BuildContext contetxt, int index) {
+                  return Image.asset(
+                    images[index],
+                    fit: BoxFit.contain,
+                  );
+                },
+                loop: false,
+                autoplay: false,
+              ),
             ),
           ),
         ),
