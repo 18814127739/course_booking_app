@@ -39,18 +39,23 @@ class VideoPageState extends State<VideoPage> {
         videoLength = getTimeStr(totalSeconds);
       });
     });
-    // 监听视频进度变化, 更改已观看时间
     videoController.addListener(() {
-      setState(() {
-        downSeconds = (videoController.value.position.inMilliseconds / 1000).round();
-        doneLength = getTimeStr(downSeconds);
-      });
+      int position = (videoController.value.position.inMilliseconds / 1000).round();
+      // 拖动slider后, 就算视频播完, 还是会一直监听到变化, 在ios模拟器上position会一直增大, 估计存在内存泄漏, 待查明
+      // print(position);
+      if(position <= totalSeconds) {
+        setState(() {
+          downSeconds = position;
+          doneLength = getTimeStr(downSeconds);
+        });
+      }
     });
     videoController.play();
     showActions();
   }
 
-  // 显示操作栏, 并在3秒后隐藏
+
+  // 显示操作栏, 并在4秒后隐藏
   void showActions() {
     setState(() {
       isShowActions = true;
@@ -169,7 +174,7 @@ class VideoPageState extends State<VideoPage> {
                                     });
                                   },
                                   onChangeEnd: (double value) {
-                                    playStartAtPosition(downSeconds);
+                                    videoController.play();
                                   },
                                 ),
                               ),
