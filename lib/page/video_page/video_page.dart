@@ -39,8 +39,9 @@ class VideoPageState extends State<VideoPage> {
         videoLength = getTimeStr(totalSeconds);
       });
     });
+    int position;
     videoController.addListener(() {
-      int position = (videoController.value.position.inMilliseconds / 1000).round();
+      position = (videoController.value.position.inMilliseconds / 1000).round();
       // 拖动slider后, 就算视频播完, 还是会一直监听到变化, 在ios模拟器上position会一直增大, 估计存在内存泄漏, 待查明
       // print(position);
       if(position <= totalSeconds) {
@@ -114,99 +115,98 @@ class VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: InkWell(
-        onTap: toggleShowActions,
-        child: FutureBuilder(
-          future: videoFuture,
-          builder: (context, snapshot) {
-            if(snapshot.hasError) {
-              print(snapshot.error);
-            }
-            if(snapshot.connectionState == ConnectionState.done) {
-              return Stack(
-                children: <Widget>[
-                  Center(
-                    child: Hero(
-                      tag: widget.tag,
+    return Hero(
+      tag: widget.tag,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: InkWell(
+          onTap: toggleShowActions,
+          child: FutureBuilder(
+            future: videoFuture,
+            builder: (context, snapshot) {
+              if(snapshot.hasError) {
+                print(snapshot.error);
+              }
+              if(snapshot.connectionState == ConnectionState.done) {
+                return Stack(
+                  children: <Widget>[
+                    Center(
                       child: AspectRatio(
                         aspectRatio: videoController.value.aspectRatio,
                         child: VideoPlayer(videoController),
                       ),
                     ),
-                  ),
-                  if(isShowActions) Positioned(
-                    bottom: 0,
-                    child: Container(
-                      width: Gsize.deviceWidth,
-                      color: Colors.transparent,
-                      padding: EdgeInsets.fromLTRB(Gpadding.l, 0, Gpadding.l, Gpadding.m),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: togglePlay,
-                                child: Icon(
-                                  videoController.value.isPlaying ? Icons.pause : Icons.play_arrow, 
-                                  color: Colors.white
+                    if(isShowActions) Positioned(
+                      bottom: 0,
+                      child: Container(
+                        width: Gsize.deviceWidth,
+                        color: Colors.transparent,
+                        padding: EdgeInsets.fromLTRB(Gpadding.l, 0, Gpadding.l, Gpadding.m + Gsize.bottomHeight),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: togglePlay,
+                                  child: Icon(
+                                    videoController.value.isPlaying ? Icons.pause : Icons.play_arrow, 
+                                    color: Colors.white
+                                  ),
                                 ),
-                              ),
-                              Padding(padding: EdgeInsets.only(right: Gpadding.s)),
-                              Text(doneLength, style: TextStyle(color: Colors.white)),
-                              Expanded(
-                                child: Slider(
-                                  min: 0,
-                                  max: double.parse(totalSeconds.toString()),
-                                  value: double.parse(downSeconds.toString()),
-                                  activeColor: Colors.white,
-                                  inactiveColor: Color.fromRGBO(255, 255, 255, .3),
-                                  onChangeStart: (double value) {
-                                    videoController.pause();
-                                  },
-                                  // 这里有坑, slider组件必须设置了onChanged事件, activeColor和inactiveColor属性才会生效
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      int position = value.round();
-                                      downSeconds = position;
-                                      videoController.seekTo(Duration(seconds: position));
-                                    });
-                                  },
-                                  onChangeEnd: (double value) {
-                                    videoController.play();
-                                  },
+                                Padding(padding: EdgeInsets.only(right: Gpadding.s)),
+                                Text(doneLength, style: TextStyle(color: Colors.white)),
+                                Expanded(
+                                  child: Slider(
+                                    min: 0,
+                                    max: double.parse(totalSeconds.toString()),
+                                    value: double.parse(downSeconds.toString()),
+                                    activeColor: Colors.white,
+                                    inactiveColor: Color.fromRGBO(255, 255, 255, .3),
+                                    onChangeStart: (double value) {
+                                      videoController.pause();
+                                    },
+                                    // 这里有坑, slider组件必须设置了onChanged事件, activeColor和inactiveColor属性才会生效
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        int position = value.round();
+                                        videoController.seekTo(Duration(seconds: position));
+                                      });
+                                    },
+                                    onChangeEnd: (double value) {
+                                      videoController.play();
+                                    },
+                                  ),
                                 ),
-                              ),
-                              Padding(padding: EdgeInsets.only(right: Gpadding.s)),
-                              Text(videoLength, style: TextStyle(color: Colors.white)),
-                            ],
-                          ),
-                          Padding(padding: EdgeInsets.only(top: Gpadding.l)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: goBack,
-                                child: Icon(Icons.close, color: Colors.white),
-                              ),
-                              Icon(Icons.more_horiz, color: Colors.white),
-                            ],
-                          ),
-                        ],
+                                Padding(padding: EdgeInsets.only(right: Gpadding.s)),
+                                Text(videoLength, style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                            Padding(padding: EdgeInsets.only(top: Gpadding.l)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: goBack,
+                                  child: Icon(Icons.close, color: Colors.white),
+                                ),
+                                Icon(Icons.more_horiz, color: Colors.white),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(backgroundColor: Colors.white),
-              );
+                    )
+                  ],
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(backgroundColor: Color.fromRGBO(255, 255, 255, .5)),
+                );
+              }
             }
-          }
-        ) 
-      ), 
+          ),
+        ), 
+      ),
     );
   }
 }
