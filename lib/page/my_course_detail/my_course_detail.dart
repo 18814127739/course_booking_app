@@ -17,6 +17,7 @@ class MyCourseDetailState extends State<MyCourseDetail> {
 
   @override
   void initState() {
+    super.initState();
     setState(() {
       detail = MyCourseDetailModel.fromJson({
         'id': widget.id,
@@ -35,7 +36,6 @@ class MyCourseDetailState extends State<MyCourseDetail> {
         ]
       });
     });
-    super.initState();
   }
 
   @override

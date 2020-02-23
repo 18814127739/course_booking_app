@@ -40,7 +40,7 @@ class LoadingState extends State<Loading> {
 
   // 跳转至首页
   skip(BuildContext context) {
-    Application.router.navigateTo(context, '/', transition: TransitionType.fadeIn);
+    Application.router.navigateTo(context, '/',  replace: true, transition: TransitionType.fadeIn);
     timer.cancel();
   }
 

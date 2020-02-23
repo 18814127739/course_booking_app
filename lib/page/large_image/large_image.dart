@@ -18,10 +18,10 @@ class LargeImageState extends State<LargeImage> {
 
   @override
   void initState() {
+    super.initState();
     setState(() {
       curIndex = widget.index;
     });
-    super.initState();
   }
 
   @override

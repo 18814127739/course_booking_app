@@ -31,6 +31,7 @@ class HomeState extends State<Home> {
 
   @override
   void initState() {
+    super.initState();
     double opacity;
     controller.addListener(() {
       setState(() {
@@ -51,13 +52,12 @@ class HomeState extends State<Home> {
       "desc": "名师教学、保证高分、一对一辅导",
       "name": "${type[index]}趣味课堂",
     }));
-    super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
+    controller.dispose();
   }
 
   // 首页菜单
@@ -231,7 +231,7 @@ class HomeState extends State<Home> {
             opacity: barOpacity,
             child: Container(
               color: Color.fromRGBO(37, 177, 135, 1),
-              padding: EdgeInsets.fromLTRB(Gpadding.m, Gsize.statusBarHeight, Gpadding.m, Gpadding.s),
+              padding: EdgeInsets.fromLTRB(Gpadding.m, Gsize.statusBarHeight + Gpadding.xs, Gpadding.m, Gpadding.xs),
               child: Row(
                 children: <Widget>[
                   CircleAvatar(

@@ -22,6 +22,7 @@ class CommentListState extends State<CommentList> {
 
   @override
   void initState() {
+    super.initState();
     commentList = List.generate(10, (index) => CommentModel.fromJson({
       "id": "$index",
       "userName": "丽丽妈妈",
@@ -31,7 +32,6 @@ class CommentListState extends State<CommentList> {
       "content": "老师认真负责，孩子说课堂十分有趣，自己收获颇多，希望能有效提高孩子成绩。",
       "images": "assets/images/comment.png,assets/images/comment.png,assets/images/comment.png,assets/images/comment.png",
     })).toList();
-    super.initState();
   }
 
   @override
@@ -51,7 +51,11 @@ class CommentListState extends State<CommentList> {
                 color: Colors.white,
                 border: Border(bottom: BorderSide(width: 1, color: FontColor.wDivider)),
               ),
-              child: CommentItem(commentList[index], true),
+              child: CommentItem(
+                key: UniqueKey(),
+                comment: commentList[index], 
+                isShowImgs: true,
+              ),
             );
           }
         ),

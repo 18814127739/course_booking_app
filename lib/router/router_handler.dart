@@ -22,28 +22,28 @@ Handler myCourseHandler = Handler(
 
 Handler myCourseDetailHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return MyCourseDetail(params["id"].first);
+    return MyCourseDetail(params["id"]?.first);
   }
 );
 
 Handler courseDetailHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return CourseDetail(params["id"].first);
+    return CourseDetail(params["id"]?.first);
   }
 );
 
 Handler commentListHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    double price = double.parse(params["price"].first);
-    double dailyPrice = double.parse(params["dailyPrice"].first);
+    double price = double.parse(params["price"]?.first);
+    double dailyPrice = double.parse(params["dailyPrice"]?.first);
     return CommentList(params["id"].first, price, dailyPrice);
   }
 );
 
 Handler bigImageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    int index = int.parse(params["index"].first);
-    String id = params["id"].first;
+    int index = int.parse(params["index"]?.first);
+    String id = params["id"]?.first;
     return LargeImage(index, id);
   }
 );

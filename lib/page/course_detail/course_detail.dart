@@ -26,6 +26,7 @@ class CourseDetailState extends State<CourseDetail> {
 
   @override
   void initState() {
+    super.initState();
     double opacity;
     scrollController.addListener(() {
       opacity = scrollController.offset / TOPBAR_HEIGHT;
@@ -64,13 +65,12 @@ class CourseDetailState extends State<CourseDetail> {
       "date": "2018-10-10 10:00:00",
       "content": "老师认真负责，孩子说课堂十分有趣，自己收获颇多，希望能有效提高孩子成绩。",
     })).toList();
-    super.initState();
   }
 
   @override
   void dispose() {
-    scrollController.dispose();
     super.dispose();
+    scrollController.dispose();
   }
 
   void goBack() {
@@ -158,18 +158,25 @@ class CourseDetailState extends State<CourseDetail> {
                   ),
                 ],
               ),
-              Padding(padding: EdgeInsets.only(top: Gpadding.l)),
-              rowItem('名称', detail.orgName),
-              rowItem('创办时间', detail.orgFoundedTime),
-              rowItem('办学理念', detail.orgConcept),
-              Padding(padding: EdgeInsets.only(top: Gpadding.s)),
-              Text('学校介绍', style: TextStyle(color: FontColor.grey, fontSize: FontSize.l)),
-              Padding(padding: EdgeInsets.only(top: Gpadding.s)),
-              Text(
-                detail.orgInfo, 
-                style: TextStyle(color: Colors.black87),
-                maxLines: 10,
-                overflow: TextOverflow.ellipsis,
+              Expanded(
+                child: ListView(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(top: Gpadding.m)),
+                    rowItem('名称', detail.orgName),
+                    rowItem('创办时间', detail.orgFoundedTime),
+                    rowItem('办学理念', detail.orgConcept),
+                    Padding(padding: EdgeInsets.only(top: Gpadding.s)),
+                    Text('学校介绍', style: TextStyle(color: FontColor.grey, fontSize: FontSize.l)),
+                    Padding(padding: EdgeInsets.only(top: Gpadding.s)),
+                    Text(
+                      detail.orgInfo, 
+                      style: TextStyle(color: Colors.black87),
+                      maxLines: 10,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: Gpadding.m)),
+                  ],
+                ),
               ),
             ],
           ),
@@ -340,13 +347,18 @@ class CourseDetailState extends State<CourseDetail> {
         ),
         ...comments.map((item) => 
           Container(
+            key: UniqueKey(),
             margin: EdgeInsets.only(top: Gpadding.s),
             padding: EdgeInsets.all(Gpadding.s),
             decoration: BoxDecoration(
               color: BgColor.grey,
               borderRadius: BorderRadius.all(Gradius.xs),
             ),
-            child:CommentItem(item, false),
+            child:CommentItem(
+              key: UniqueKey(),
+              comment: item, 
+              isShowImgs: false
+            ),
           ),
         ).toList(),
       ],
@@ -374,7 +386,7 @@ class CourseDetailState extends State<CourseDetail> {
                   MyBanner(bannerData),
                   Container(
                     color: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: Gpadding.m),
+                    padding: EdgeInsets.fromLTRB(Gpadding.m, Gpadding.s, Gpadding.m, Gpadding.s),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -382,10 +394,11 @@ class CourseDetailState extends State<CourseDetail> {
                           detail.name, 
                           style: TextStyle(color: Colors.black87, fontSize: FontSize.l, fontWeight: FontWeight.bold)
                         ),
-                        IconButton(
-                          onPressed: toggleLike,
-                          icon: detail.like ? Icon(Icons.favorite, color: FontColor.red) : Icon(Icons.favorite_border, color: FontColor.grey),
-                        )
+                        GestureDetector(
+                          onTap: toggleLike,
+                          child: detail.like ? Icon(Icons.favorite, color: FontColor.red) : 
+                            Icon(Icons.favorite_border, color: FontColor.grey),
+                        ),
                       ],
                     ),
                   ),

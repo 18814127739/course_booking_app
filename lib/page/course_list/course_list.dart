@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluro/fluro.dart';
+import 'package:course_booking_app/router/application.dart';
 import 'course_item.dart';
 import 'package:course_booking_app/utils/utils.dart';
 import 'package:course_booking_app/style/index.dart';
@@ -19,6 +21,7 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
 
   @override
   void initState() {
+    super.initState();
     List<CourseModel> courseList = List.generate(5, (int index) => CourseModel.fromJson({
       "id": "$index", 
       "name": "寒假全期小/初/高数学辅导班", 
@@ -42,13 +45,12 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
     });
     // 可通过tabController初始化tabindex
     // tabController.index = 1; 
-    super.initState();
   }
 
   @override
   void dispose() {
-    tabController.dispose();
     super.dispose();
+    tabController.dispose();
   }
 
   // 导航至搜索页
@@ -132,8 +134,16 @@ class CourseListState extends State<CourseList> with SingleTickerProviderStateMi
   Widget build(BuildContext context) {
 
     List<Widget> renderCourseList(List<CourseModel> courseList) {
-      return courseList.map((CourseModel c) => 
-        CourseItem(c)
+      return courseList.map((CourseModel c) =>
+        InkWell(
+          onTap: () {
+            Application.router.navigateTo(context, '/courseDetail?id=${c.id}', transition: TransitionType.fadeIn);
+          },
+          child: CourseItem(
+            key: UniqueKey(), 
+            course :c
+          )
+        )
       ).toList();
     }
 

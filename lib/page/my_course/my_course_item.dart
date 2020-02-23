@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:course_booking_app/utils/utils.dart';
 import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/model/my_course_model.dart';
 
 class MyCourseItem extends StatelessWidget {
-  String id;
-  String name;
-  String image;
-  int total;
-  int finish;
-  String teacher;
+  MyCourseModel data;
 
-  MyCourseItem(@required this.id, this.name, this.image, this.total, this.finish, this.teacher);
+  MyCourseItem({Key key, @required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,33 +21,33 @@ class MyCourseItem extends StatelessWidget {
         children: [
           Row(
             children: <Widget>[
-              Image.asset(image, width: 82, height: 82, fit: BoxFit.cover),
+              Image.asset(data.image, width: 82, height: 82, fit: BoxFit.cover),
               Padding(padding: EdgeInsets.only(right: Gpadding.m)),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      name, style: TextStyle(fontSize: FontSize.xl, fontWeight: FontWeight.bold),
+                      data.name, style: TextStyle(fontSize: FontSize.xl, fontWeight: FontWeight.bold),
                     ),
                     Padding(padding: EdgeInsets.only(top: Gpadding.xs)),
                     Text(
-                      teacher, style: TextStyle(fontSize: FontSize.l, color: Colors.black87),
+                      data.teacher, style: TextStyle(fontSize: FontSize.l, color: Colors.black87),
                     ),
                     Padding(padding: EdgeInsets.only(top: Gpadding.xs)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '共${total}学时', style: TextStyle(fontSize: FontSize.l, color: FontColor.grey),
+                          '共${data.total}学时', style: TextStyle(fontSize: FontSize.l, color: FontColor.grey),
                         ),
                         Row(
                           children: <Widget>[
                             Text(
-                              '${finish}', style: TextStyle(fontSize: FontSize.l, color: Colors.blue),
+                              '${data.finish}', style: TextStyle(fontSize: FontSize.l, color: Colors.blue),
                             ),
                             Text(
-                              '/${total}', style: TextStyle(fontSize: FontSize.l, color: FontColor.grey),
+                              '/${data.total}', style: TextStyle(fontSize: FontSize.l, color: FontColor.grey),
                             ),
                           ],
                         )
@@ -73,13 +68,13 @@ class MyCourseItem extends StatelessWidget {
                   child: LinearProgressIndicator(
                     backgroundColor: FontColor.divider,
                     valueColor: AlwaysStoppedAnimation(Colors.blue),
-                    value: finish / total,
+                    value: data.finish / data.total,
                   ),
                 ), 
               ),
               Padding(padding: EdgeInsets.only(right: Gpadding.s)),
               Text(
-                '${(finish / total) * 100}%', style: TextStyle(fontSize: FontSize.s, color: Colors.blue, fontWeight: FontWeight.bold),
+                '${(data.finish / data.total) * 100}%', style: TextStyle(fontSize: FontSize.s, color: Colors.blue, fontWeight: FontWeight.bold),
               ),
             ],
           ),

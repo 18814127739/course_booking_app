@@ -1,7 +1,6 @@
 import 'package:course_booking_app/model/comment_model.dart';
 import 'package:course_booking_app/router/application.dart';
 import 'package:flutter/material.dart';
-import 'package:fluro/fluro.dart';
 import 'package:course_booking_app/style/index.dart';
 import 'package:provider/provider.dart';
 import 'package:course_booking_app/provider/large_image_provider.dart';
@@ -10,7 +9,7 @@ class CommentItem extends StatelessWidget {
   CommentModel comment;
   bool isShowImgs;
 
-  CommentItem(@required this.comment, this.isShowImgs);
+  CommentItem({Key key,  @required this.comment, this.isShowImgs}) : super(key: key);
 
   void clickImage(BuildContext context, int index) {
     List<String> imgs = comment.images.split(",");
