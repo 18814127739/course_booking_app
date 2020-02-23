@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:async';
 import 'package:course_booking_app/style/index.dart';
+import 'package:course_booking_app/utils/utils.dart';
 
 class VideoPage extends StatefulWidget {
+  String url;
+  String tag;
+
+  VideoPage({@required this.url, this.tag});
+
   @override
   VideoPageState createState() => VideoPageState();
 }
@@ -25,10 +31,7 @@ class VideoPageState extends State<VideoPage> {
   }
 
   void initController() {
-    videoController = VideoPlayerController.asset(
-      // 'https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4'
-      'assets/video/test.mp4'
-    );
+    videoController = VideoPlayerController.asset(widget.url);
     videoFuture = videoController.initialize().then((_) {
       setState(() {
         // 获取视频总时长(秒), 四舍五入精确到秒
@@ -53,28 +56,12 @@ class VideoPageState extends State<VideoPage> {
       isShowActions = true;
     });
     // 若上一次倒计时没结束, 则手动结束, 重新倒计时
-    if(timer != null) {
-      timer.cancel();
-    }
+    cancelTimer();
     timer = Timer(Duration(seconds: 4), () {
       setState(() {
         isShowActions = false;
       });
     });
-  }
-
-  // 秒 ——> 时:分:秒
-  String getTimeStr(int s){
-    if( s > 0) {
-      int hs = (s / 3600).floor();
-      int ms = ((s - 3600 * hs) / 60).floor();
-      int ss = ((s - 3600 * hs - ms * 60) % 60).floor();
-      String hStr = hs > 0 ? hs > 9 ? '$hs:' : '0$hs:' : '';
-      String mStr = ms > 0 ? ms > 9 ? '$ms:' : '0$ms:' : '00:';
-      String sStr = ss > 0 ? ss > 9 ? '$ss' : '0$ss' : '00';
-      return '$hStr$mStr$sStr';
-    }
-    return '00:00';
   }
 
   void toggleShowActions() {
@@ -85,13 +72,6 @@ class VideoPageState extends State<VideoPage> {
         isShowActions = false;
       });
     }
-  }
-
-  void goBack() {
-    if(timer != null) {
-      timer.cancel();
-    }
-    Navigator.pop(context);
   }
 
   // 暂停/播放
@@ -109,13 +89,22 @@ class VideoPageState extends State<VideoPage> {
     videoController.play();
   }
 
+  void cancelTimer() {
+    if(timer != null) {
+      timer.cancel();
+    }
+  }
+
+  void goBack() {
+    cancelTimer();
+    Navigator.pop(context);
+  }
+
   @override
   void dispose() {
     super.dispose();
     videoController.dispose();
-    if(timer != null) {
-      timer.cancel();
-    }
+    cancelTimer();
   }
 
   @override
@@ -134,9 +123,12 @@ class VideoPageState extends State<VideoPage> {
               return Stack(
                 children: <Widget>[
                   Center(
-                    child: AspectRatio(
-                      aspectRatio: videoController.value.aspectRatio,
-                      child: VideoPlayer(videoController),
+                    child: Hero(
+                      tag: widget.tag,
+                      child: AspectRatio(
+                        aspectRatio: videoController.value.aspectRatio,
+                        child: VideoPlayer(videoController),
+                      ),
                     ),
                   ),
                   if(isShowActions) Positioned(

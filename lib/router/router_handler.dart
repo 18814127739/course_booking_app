@@ -51,6 +51,8 @@ Handler bigImageHandler = Handler(
 
 Handler videoPageHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return VideoPage();
+    String url = params["url"]?.first;
+    String tag = params["tag"]?.first;
+    return VideoPage(url: url, tag: tag);
   }
 );

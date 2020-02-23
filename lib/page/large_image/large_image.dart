@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:course_booking_app/provider/large_image_provider.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:course_booking_app/style/index.dart';
 
 class LargeImage extends StatefulWidget {
   int index;

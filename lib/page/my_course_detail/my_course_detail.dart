@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluro/fluro.dart';
 import 'package:course_booking_app/page/common_widget/base_layout.dart';
 import 'package:course_booking_app/style/index.dart';
 import 'package:course_booking_app/model/my_course_detail_model.dart';
@@ -60,11 +59,15 @@ class MyCourseDetailState extends State<MyCourseDetail> {
   // 课程基本信息
   Widget renderBaseInfo() => Row(
     children: <Widget>[
-      GestureDetector(
-        onTap: () {
-          Application.router.navigateTo(context, '/videoPage', transition: TransitionType.fadeIn);
-        },
-        child: Image.asset(detail.image, width: 96, height: 96, fit: BoxFit.cover),
+      Hero(
+        tag: detail.id,
+        child: GestureDetector(
+          onTap: () {
+            String url = Uri.encodeComponent('assets/video/test.mp4');
+            Application.router.navigateTo(context, '/videoPage?url=$url&tag=${detail.id}');
+          },
+          child: Image.asset(detail.image, width: 96, height: 96, fit: BoxFit.cover),
+        ),
       ),
       Padding(padding: EdgeInsets.only(right: Gpadding.m)),
       Expanded(
