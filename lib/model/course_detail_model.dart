@@ -12,9 +12,9 @@ class CourseDetailModel {
   double price;
   double dailyPrice; // 原价
 
-  CourseDetailModel(
+  CourseDetailModel({
     this.id, this.name, this.images, this.like, this.orgName, this.orgPhone, this.orgAddr, this.price, this.dailyPrice,
-  );
+  });
 
   CourseDetailModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];

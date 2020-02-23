@@ -6,7 +6,9 @@ class CourseModel {
   double price;
   int bookNum;
 
-  CourseModel(this.id, this.name, this.image, this.desc, this.price, this.bookNum);
+  CourseModel({
+    this.id, this.name, this.image, this.desc, this.price, this.bookNum
+  });
 
   CourseModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];

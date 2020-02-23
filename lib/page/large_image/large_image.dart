@@ -29,32 +29,28 @@ class LargeImageState extends State<LargeImage> {
     List<String> images = Provider.of<LargeImageProvider>(context).images;
 
     return Scaffold(
-      body: Container(
-        width: Gsize.deviceWidth,
-        height: Gsize.deviceHeight,
-        color: Colors.black,
-        child: InkWell(
-          onTap: () { Navigator.pop(context);},
-          child: Hero(
-            tag: '${widget.id}-${curIndex}',
-            child: Center(
-              child: Swiper(
-                itemCount: images.length,
-                index: curIndex,
-                onIndexChanged: (int index) {
-                  setState(() {
-                    curIndex = index;
-                  });
-                },
-                itemBuilder: (BuildContext contetxt, int index) {
-                  return Image.asset(
-                    images[index],
-                    fit: BoxFit.contain,
-                  );
-                },
-                loop: false,
-                autoplay: false,
-              ),
+      backgroundColor: Colors.black,
+      body: InkWell(
+        onTap: () { Navigator.pop(context);},
+        child: Hero(
+          tag: '${widget.id}-${curIndex}',
+          child: Center(
+            child: Swiper(
+              itemCount: images.length,
+              index: curIndex,
+              onIndexChanged: (int index) {
+                setState(() {
+                  curIndex = index;
+                });
+              },
+              itemBuilder: (BuildContext contetxt, int index) {
+                return Image.asset(
+                  images[index],
+                  fit: BoxFit.contain,
+                );
+              },
+              loop: false,
+              autoplay: false,
             ),
           ),
         ),

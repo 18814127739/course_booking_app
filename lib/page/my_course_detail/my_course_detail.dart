@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluro/fluro.dart';
 import 'package:course_booking_app/page/common_widget/base_layout.dart';
 import 'package:course_booking_app/style/index.dart';
 import 'package:course_booking_app/model/my_course_detail_model.dart';
+import 'package:course_booking_app/router/application.dart';
 
 class MyCourseDetail extends StatefulWidget {
   String id;
@@ -60,7 +60,12 @@ class MyCourseDetailState extends State<MyCourseDetail> {
   // 课程基本信息
   Widget renderBaseInfo() => Row(
     children: <Widget>[
-      Image.asset(detail.image, width: 96, height: 96, fit: BoxFit.cover),
+      GestureDetector(
+        onTap: () {
+          Application.router.navigateTo(context, '/videoPage', transition: TransitionType.fadeIn);
+        },
+        child: Image.asset(detail.image, width: 96, height: 96, fit: BoxFit.cover),
+      ),
       Padding(padding: EdgeInsets.only(right: Gpadding.m)),
       Expanded(
         child: Column(

@@ -7,9 +7,9 @@ class CommentModel {
   String date;
   String images;
 
-  CommentModel(
+  CommentModel({
     this.id, this.userName, this.content, this.avatar, this.score, this.date, this.images
-  );
+  });
 
   CommentModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];

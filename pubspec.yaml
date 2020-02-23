@@ -36,6 +36,7 @@ dev_dependencies:
   flutter_html: ^0.9.6
   date_format: ^1.0.6
   video_player: ^0.10.8
+  chewie: ^0.9.8+1
 
 
 # For information on the generic Dart part of this file, see the
@@ -76,6 +77,8 @@ flutter:
     - assets/icons/me/man.png
     - assets/icons/me/woman.png
     - assets/icons/location.png
+
+    - assets/video/test.mp4
 
   # To add assets to your application, add an assets section, like this:
   # assets:

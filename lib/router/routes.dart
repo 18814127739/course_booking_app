@@ -21,5 +21,7 @@ class Routes {
     router.define('/commentList', handler: commentListHandler);
     // 查看大图
     router.define('/largeImage', handler: bigImageHandler);
+    // 视频播放
+    router.define('/videoPage', handler: videoPageHandler);
   }
 }

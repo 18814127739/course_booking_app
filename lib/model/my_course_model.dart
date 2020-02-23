@@ -6,14 +6,14 @@ class MyCourseModel {
   int total;
   int finish;
 
-  MyCourseModel(
+  MyCourseModel({
     this.id,
     this.name,
     this.image,
     this.teacher,
     this.total,
     this.finish,
-  );
+  });
 
   MyCourseModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];

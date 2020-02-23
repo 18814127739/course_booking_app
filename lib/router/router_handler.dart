@@ -7,6 +7,7 @@ import '../page/my_course_detail/my_course_detail.dart';
 import '../page/course_detail/course_detail.dart';
 import '../page/comment_list/comment_list.dart';
 import '../page/large_image/large_image.dart';
+import '../page/video_page/video_page.dart';
 
 Handler rootHandler = Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -45,5 +46,11 @@ Handler bigImageHandler = Handler(
     int index = int.parse(params["index"]?.first);
     String id = params["id"]?.first;
     return LargeImage(index, id);
+  }
+);
+
+Handler videoPageHandler = Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return VideoPage();
   }
 );

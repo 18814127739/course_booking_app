@@ -10,7 +10,7 @@ class MyCourseDetailModel {
   String endDate;
   List<List<String>> coursePlan;
 
-  MyCourseDetailModel(
+  MyCourseDetailModel({
     this.id,
     this.name,
     this.image,
@@ -21,7 +21,7 @@ class MyCourseDetailModel {
     this.beginDate,
     this.endDate,
     this.coursePlan,
-  );
+  });
 
   MyCourseDetailModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
