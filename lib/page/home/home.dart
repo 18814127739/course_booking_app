@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'hot_course_item.dart';
@@ -63,47 +64,46 @@ class HomeState extends State<Home> {
   // 首页菜单
   Widget renderMenuList() {
     double deviceWidth = MediaQuery.of(context).size.width;
-    double itemWidth = (deviceWidth - 120) / 4;
+    double itemWidth = (deviceWidth - 110) / 4;
     double itemHeight = itemWidth;
     double radiusSize = itemHeight / 2;
 
-    List<Widget> menuList = menuData.map((item) {
-      return InkWell(
-        onTap: () {
-          print(item["title"]);
-        },
-        child: Container(
-          width: itemWidth,
-          margin: EdgeInsets.only(left: Gpadding.s, right: Gpadding.s, bottom: Gpadding.l),
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: itemWidth,
-                height: itemHeight,
-                margin: EdgeInsets.only(bottom: Gpadding.xs),
-                padding: EdgeInsets.all(1),
-                decoration: BoxDecoration(
-                    color: string2Color(item["color"]),
-                    borderRadius: BorderRadius.all(Radius.circular(radiusSize))
+    return Container(
+      margin: EdgeInsets.only(top: Gpadding.s),
+      padding: EdgeInsets.symmetric(horizontal: Gpadding.m),
+      height: itemHeight + 50,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: menuData.map((item) => GestureDetector(
+            onTap: () {
+            print(item["title"]);
+          },
+          child: Container(
+            width: itemWidth,
+            margin: EdgeInsets.only(left: Gpadding.s, right: Gpadding.s, bottom: Gpadding.l),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: itemWidth,
+                  height: itemHeight,
+                  margin: EdgeInsets.only(bottom: Gpadding.xs),
+                  padding: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                      color: string2Color(item["color"]),
+                      borderRadius: BorderRadius.all(Radius.circular(radiusSize))
+                  ),
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/dog.jpeg'),
+                  ),
                 ),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/dog.jpeg'),
-                ),
-              ),
-              Text(
-                item["title"],
-                style: TextStyle(fontSize: FontSize.s, color: FontColor.grey),
-              )
-            ],
+                Text(
+                  item["title"],
+                  style: TextStyle(fontSize: FontSize.s, color: FontColor.grey),
+                )
+              ],
+            ),
           ),
-        ),
-      );
-    }).toList();
-
-    return Center(
-      child: Wrap(
-        spacing: 4,
-        children: menuList,
+        )).toList(),
       ),
     );
   }

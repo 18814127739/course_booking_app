@@ -4,6 +4,7 @@ import 'package:course_booking_app/provider/current_index_provider.dart';
 import 'home/home.dart';
 import 'course_list/course_list.dart';
 import 'me/me.dart';
+import 'webview/webview.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -23,12 +24,17 @@ const List tabs = [
     'title': '我的',
     'icon': Icon(Icons.account_circle),
   },
+  {
+    'title': '网页',
+    'icon': Icon(Icons.web_asset),
+  }
 ];
 
 class IndexPageState extends State<IndexPage> {
   Home home; // 首页
   CourseList courseList; // 课程页
   Me me; // 我的页
+  WebViewPage webview;
 
   currentPage() {
     int index = Provider.of<CurrentIndexProvider>(context).curIndex;
@@ -48,6 +54,11 @@ class IndexPageState extends State<IndexPage> {
           me = Me();
         }
         return me;
+      case 3:
+        if(webview == null) {
+          webview = WebViewPage();
+        }
+        return webview;
     }
   }
 
