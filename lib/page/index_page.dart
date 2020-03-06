@@ -36,9 +36,8 @@ class IndexPageState extends State<IndexPage> {
   Me me; // 我的页
   WebViewPage webview;
 
-  currentPage() {
-    int index = Provider.of<CurrentIndexProvider>(context).curIndex;
-    switch(index) {
+  currentPage(CurrentIndexProvider indexProvider) {
+    switch(indexProvider.curIndex) {
       case 0:
         if(home == null) {
           home = Home();
@@ -64,23 +63,26 @@ class IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
-    int curIndex = Provider.of<CurrentIndexProvider>(context).curIndex;
-
-    return Scaffold(
-      body: currentPage(),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          Provider.of<CurrentIndexProvider>(context).changeIndex(index);
-        },
-        currentIndex: curIndex,
-        items: tabs.map((item) => 
-          BottomNavigationBarItem(
-            icon: item['icon'],
-            title: Text(item['title'])
-          )
-        ).toList(),
-      ),
+    return Consumer<CurrentIndexProvider> (
+      builder: (context, indexProvider, _) {
+        int curIndex = indexProvider.curIndex;
+        return Scaffold(
+          body: currentPage(indexProvider),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            onTap: (index) {
+              indexProvider.changeIndex(index);
+            },
+            currentIndex: curIndex,
+            items: tabs.map((item) => 
+              BottomNavigationBarItem(
+                icon: item['icon'],
+                title: Text(item['title'])
+              )
+            ).toList(),
+          ),
+        );
+      },
     );
   }
 }

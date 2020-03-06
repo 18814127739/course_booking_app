@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class CurrentIndexProvider with ChangeNotifier {
-  int curIndex = 0;
+  int _curIndex = 0;
+
+  int get curIndex => _curIndex;
   
   void changeIndex(int index) {
-    curIndex = index;
+    _curIndex = index;
     notifyListeners();
   }
 }

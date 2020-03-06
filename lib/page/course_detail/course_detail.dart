@@ -29,7 +29,7 @@ class CourseDetailState extends State<CourseDetail> {
     super.initState();
     double opacity;
     scrollController.addListener(() {
-      opacity = scrollController.offset / TOPBAR_HEIGHT;
+      opacity = scrollController.offset / TOPBAR_HEIGHT / 1.5;
       setState(() {
         if(opacity > 1) {
           whiteBarOpacity = 1;

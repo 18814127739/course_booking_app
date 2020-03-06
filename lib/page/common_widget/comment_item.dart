@@ -11,9 +11,9 @@ class CommentItem extends StatelessWidget {
 
   CommentItem({Key key,  @required this.comment, this.isShowImgs}) : super(key: key);
 
-  void clickImage(BuildContext context, int index) {
+  void clickImage(BuildContext context, int index, LargeImageProvider largeImageProvider) {
     List<String> imgs = comment.images.split(",");
-    Provider.of<LargeImageProvider>(context).changeImages(imgs);
+    largeImageProvider.changeImages(imgs);
     Application.router.navigateTo(context, '/largeImage?index=$index&id=${comment.id}');
   }
 
@@ -83,23 +83,27 @@ class CommentItem extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: imgs.length,
             itemBuilder: (BuildContext context, int index) {
-              return Hero(
-                tag: '${comment.id}-$index',
-                child: GestureDetector(
-                  onTap: () { clickImage(context, index); },
-                  child: Container(
-                    margin: EdgeInsets.only(right: Gpadding.s),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Gradius.xs),
+              return Consumer<LargeImageProvider> (
+                builder: (context, largeImageProvider, _) {
+                  return Hero(
+                    tag: '${comment.id}-$index',
+                    child: GestureDetector(
+                      onTap: () { clickImage(context, index, largeImageProvider); },
+                      child: Container(
+                        margin: EdgeInsets.only(right: Gpadding.s),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Gradius.xs),
+                        ),
+                        height: 100,
+                        width: 100,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.asset(imgs[index], fit: BoxFit.cover),
+                        ),
+                      ),
                     ),
-                    height: 100,
-                    width: 100,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: Image.asset(imgs[index], fit: BoxFit.cover),
-                    ),
-                  ),
-                ),
+                  );
+                },
               );
             },
           ),

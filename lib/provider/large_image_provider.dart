@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class LargeImageProvider extends ChangeNotifier {
-  List<String> images = [];
+  List<String> _images = [];
+
+  List<String> get images => _images;
 
   void changeImages(List<String> imgs) {
-    images = imgs;
+    _images = imgs;
     notifyListeners(); // 通知界面刷新
   }
 }

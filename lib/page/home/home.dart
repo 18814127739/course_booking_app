@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 import 'hot_course_item.dart';
 import '../common_widget/banner.dart';
 import 'package:course_booking_app/provider/current_index_provider.dart';
@@ -139,19 +138,22 @@ class HomeState extends State<Home> {
                   ),
                 ],
               ),
-              Container(
-                padding: EdgeInsets.only(right: Gpadding.s),
-                child: GestureDetector(
-                  onTap: () {
-                    // 切换至课程列表tab
-                    Provider.of<CurrentIndexProvider>(context).changeIndex(1);
-                  },
-                  child: Text(
-                    '查看更多 >',
-                    style: TextStyle(fontSize: FontSize.s, color: Colors.blue),
-                  ),
-                ) 
-              )
+              Consumer<CurrentIndexProvider> (
+                builder: (context, indexProvider, _) {
+                  return Container(
+                    padding: EdgeInsets.only(right: Gpadding.s),
+                    child: GestureDetector(
+                      onTap: () {
+                        indexProvider.changeIndex(1);
+                      },
+                      child: Text(
+                        '查看更多 >',
+                        style: TextStyle(fontSize: FontSize.s, color: Colors.blue),
+                      ),
+                    ) 
+                  );
+                },
+              ),
             ],
           ),
           // 热门课程列表
@@ -170,8 +172,6 @@ class HomeState extends State<Home> {
       'assets/images/banners/3.jpeg',
       'assets/images/banners/4.jpeg',
     ];
-    // 设置状态颜色
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     return Scaffold(
       // 使用SingleChildScrollView能够覆盖刘海区域,  ListView默认不会,可通过设置padding为0实现

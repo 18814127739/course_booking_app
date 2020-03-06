@@ -25,8 +25,6 @@ class LargeImageState extends State<LargeImage> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> images = Provider.of<LargeImageProvider>(context).images;
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: InkWell(
@@ -34,22 +32,27 @@ class LargeImageState extends State<LargeImage> {
         child: Hero(
           tag: '${widget.id}-${curIndex}',
           child: Center(
-            child: Swiper(
-              itemCount: images.length,
-              index: curIndex,
-              onIndexChanged: (int index) {
-                setState(() {
-                  curIndex = index;
-                });
-              },
-              itemBuilder: (BuildContext contetxt, int index) {
-                return Image.asset(
-                  images[index],
-                  fit: BoxFit.contain,
+            child: Consumer<LargeImageProvider> (
+              builder: (context, largeImageProvider, _) {
+                List<String> images = largeImageProvider.images;
+                return Swiper(
+                  itemCount: images.length,
+                  index: curIndex,
+                  onIndexChanged: (int index) {
+                    setState(() {
+                      curIndex = index;
+                    });
+                  },
+                  itemBuilder: (BuildContext contetxt, int index) {
+                    return Image.asset(
+                      images[index],
+                      fit: BoxFit.contain,
+                    );
+                  },
+                  loop: false,
+                  autoplay: false,
                 );
               },
-              loop: false,
-              autoplay: false,
             ),
           ),
         ),
