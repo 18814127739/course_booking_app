@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'dart:async';
 import '../constant/index.dart';
@@ -9,7 +8,7 @@ Future request(url, {formData}) async {
   try {
     Response res;
     Dio dio = Dio();
-    dio.options.contentType = ContentType.parse('application/x-www-form-urlencoded');
+    dio.options.contentType = 'application/x-www-form-urlencoded';
     res = await dio.post(newUrl, data: formData);
     if (res.statusCode == 200) {
       // 成功返回

@@ -3,13 +3,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:course_booking_app/page/common_widget/base_layout.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert' as convert;
 import 'dart:typed_data';
-import 'package:dio/dio.dart';
 import 'dart:convert';
-import 'package:image/image.dart';
 
 class WebViewPage extends StatefulWidget {
-
   @override
   WebViewState createState() => WebViewState();
 }
@@ -18,6 +16,7 @@ class WebViewState extends State<WebViewPage> {
   WebViewController controller;
   bool loading = false;
 
+  // 保存base64图片到本地
   JavascriptChannel savePhotos(BuildContext context) => JavascriptChannel(
     name: 'savePhotos', // 与h5 端的一致 不然收不到消息
     onMessageReceived: (JavascriptMessage msg) async {
@@ -40,10 +39,19 @@ class WebViewState extends State<WebViewPage> {
     }
   );
 
+  // 打开拍照/选择相册功能
   JavascriptChannel takePhotos(BuildContext context) => JavascriptChannel(
-    name: 'takePhotos',
-    onMessageReceived: (JavascriptMessage msg) async {
-      print(msg);
+    name: 'nativeSelectFile',
+    onMessageReceived: (JavascriptMessage msg) {
+      Map<String, dynamic> data = json.decode(msg.message);
+      String callBack = data['methodName'];
+      Map<String, dynamic> returnData = {
+        'data': '123145', // base64图片
+        'args': data['args'],
+      };
+      String params = convert.jsonEncode(returnData);
+      print(params);
+      controller.evaluateJavascript('$callBack($params)');
     }
   );
 
@@ -59,13 +67,13 @@ class WebViewState extends State<WebViewPage> {
       child: Stack(
         children: <Widget>[
           WebView(
-            // initialUrl: 'http://175.6.136.234:9000/#/',
-            // initialUrl: 'http://192.168.0.100:3000/#/',
-            initialUrl: 'http://10.45.102.152:3000/#/',
+            initialUrl: 'http://192.168.0.100:3000/#/',
+            // initialUrl: 'http://10.45.103.63:3000/#/',
             userAgent: 'flutter_app', // h5 可以通过navigator.userAgent判断当前环境
             javascriptMode: JavascriptMode.unrestricted, // 启用 js交互，默认不启用JavascriptMode.disabled
             javascriptChannels: <JavascriptChannel>[
               savePhotos(context),
+              takePhotos(context),
             ].toSet(),
             onWebViewCreated: (WebViewController webViewController) {
               controller = webViewController;
